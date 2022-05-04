@@ -1,0 +1,38 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,,,,,
+"TestCase 0:Ininitialization.",,,,,,,,,,,,,,,,
+"概要:","テスト全体で使用する変数の定義です。",,,,,,,,,,,,,,,
+,"このテストでは、以下のグローバル変数を定義します。",,,,,,,,,,,,,,,
+,"urlBase:","テスト対象のURL",,,,,,,,,,,,,,
+,"userAgent:","ブラウザ名",,,,,,,,,,,,,,
+1,"","","","","Pass","","0","05/19/2005","","FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo","","","",""
+2,"","","","","Pass","","0","05/19/2005","","FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)","","","",""
+"TestCase 1:Normal Path",,,,,,,,,,,,,,,,
+"概要:","ログイン画面で正しいパスワードを入力した場合、トップ画面がブラウザに表示される。",,,,,,,,,,,,,,,
+"事前条件:","ログインしていないこと。",,,,,,,,,,,,,,,
+"事後条件:","トップ画面が表示されること。",,,,,,,,,,,,,,,
+100,"","","","","Pass","","0","05/19/2005","","FuncRemoveCookie","FuncPrintHtml","","","","",""
+101,"GET","${urlBase}","","${userAgent}","Pass","Status:302","150","05/19/2005","","FuncExistsResponseHeader","Location","${urlBase}/","","","",""
+102,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","331","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml"
+103,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","40","05/19/2005","","","","","","","",""
+104,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}","Pass","Status:302","1021","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml","FuncExistsResponseHeader","Location","${urlBase}/index.html","",""
+105,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","111","05/19/2005","","","","","","","",""
+106,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","10","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml","","","","",""
+107,"GET","${urlBase}/faces/customerList.jsp","","${userAgent}","Pass","Status:200","500","05/19/2005","","FuncExistsString","<title>Customer List</title>","","","","",""
+"TestCase 2: ErrorCase",,,,,,,,,,,,,,,,
+"概要:","ログイン画面で誤ったパスワードを入力した場合、ログインエラー画面が表示される。",,,,,,,,,,,,,,,
+"事前条件:","ログインしていないこと。",,,,,,,,,,,,,,,
+"事後条件:","ログインエラー画面が表示されること。",,,,,,,,,,,,,,,
+200,"","","","","Pass","Status:200","0","05/19/2005","","FuncRemoveCookie","FuncPrintHtml","","","","",""
+201,"GET","${urlBase}","","${userAgent}","Pass","Status:302","0","05/19/2005","","FuncExistsResponseHeader","Location","${urlBase}/","","","",""
+202,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","40","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml"
+203,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","10","05/19/2005","","","","","","","",""
+204,"POST","${urlBase}/j_security_check","j_username=fbar&j_password=invalidPassword","${userAgent}","Pass","Status:200","311","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml","FuncExistsString","LoginError Title","","",""
+"TestCase 3: ErrorCase",,,,,,,,,,,,,,,,
+"概要:","不正なユーザIDを入力した場合、ログインエラー画面に遷移することを確認する。",,,,,,,,,,,,,,,
+"事前条件:","ログインしていないこと。",,,,,,,,,,,,,,,
+"事後条件:","ログインエラー画面が表示されること。",,,,,,,,,,,,,,,
+300,"","","","","Pass","Status:200","0","05/19/2005","","","","","","","",""
+301,"GET","${urlBase}","","${userAgent}","Pass","Status:302","40","05/19/2005","","FuncExistsResponseHeader","Location","${urlBase}/","","","",""
+302,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","30","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml"
+303,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","50","05/19/2005","","","","","","","",""
+304,"POST","${urlBase}/j_security_check","j_username=noSuchUser&j_password=invalidPassword","${userAgent}","Pass","Status:200","210","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml","","","","FuncExistsString","LoginError Title"

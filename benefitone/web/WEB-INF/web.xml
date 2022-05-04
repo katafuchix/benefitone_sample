@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" version="2.4"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+                             http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>benefitonedemo</display-name>
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>server</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.CONFIG_FILES</param-name>
+    <param-value>
+      /WEB-INF/navigation.xml,
+      /WEB-INF/managed-beans.xml
+    </param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.validateXml</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.verifyObjects</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+     <!-- EJBを使用する場合： 
+      /WEB-INF/web-spring-context.xml,
+      /WEB-INF/ejb-lookup-context.xml
+     -->
+     <!-- Tomcatを使用する場合： -->
+      /WEB-INF/web-spring-context.xml,
+     <!-- /WEB-INF/web-only-context.xml, -->
+      /WEB-INF/application-context.xml
+     <!-- -->
+    </param-value>
+  </context-param>
+
+  <!-- jsp config -->
+  <jsp-config>
+    <jsp-property-group>
+      <display-name>benefitonedemo</display-name>
+      <url-pattern>*.jsp</url-pattern>
+      <el-ignored>false</el-ignored>
+      <scripting-invalid>false</scripting-invalid>
+      <is-xml>true</is-xml>
+    </jsp-property-group>
+  </jsp-config>
+
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+  <!-- Faces Servlet -->
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- Faces Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- EJB Local Refs -->
+  <!-- Tomcat使用時は以下をコメントアウトします．
+  <ejb-local-ref>
+    <ejb-ref-name>ejb/CustomerFindService</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <local-home>jp.co.benefitone.business.customer.CustomerFindServiceLocalHome</local-home>
+    <local>jp.co.benefitone.business.customer.CustomerFindServiceLocal</local>
+    <ejb-link>CustomerFindServiceBean</ejb-link>
+  </ejb-local-ref>
+
+  <ejb-local-ref>
+    <ejb-ref-name>ejb/CustomerManageService</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <local-home>jp.co.benefitone.business.customer.CustomerManageServiceLocalHome</local-home>
+    <local>jp.co.benefitone.business.customer.CustomerManageServiceLocal</local>
+    <ejb-link>CustomerManageServiceBean</ejb-link>
+  </ejb-local-ref>
+  -->
+  
+  <!-- Tomcat使用時はこのコメントを外し，application-context.xmlの
+       dataSourceでresourceRefを有効にします.-->
+  <resource-ref>
+    <res-ref-name>jdbc/oracle</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <!-- -->
+
+  <!-- Login Authentication -->
+  <security-constraint>
+    <display-name>SecurityConstraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Test</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/faces/login.jsp</form-login-page>
+      <form-error-page>/faces/loginError.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <!-- security roles -->
+  <security-role>
+    <role-name>manager</role-name>
+  </security-role>
+  <security-role>
+    <role-name>user</role-name>
+  </security-role>
+
+</web-app>

@@ -1,0 +1,428 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,,,
+"TestCase 0: Initialization.",,,,,,,,,,,,,,
+1,,,,,,,,,,"FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo",,
+2,,,,,,,,,,"FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)",,
+"TestCase 1: Normal path",,,,,,,,,,,,,,
+"概要:","検索条件を指定せず、全件検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","全ての顧客情報が表示される。",,,,,,,,,,,,,
+100,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+101,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+102,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+103,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+104,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+105,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+106,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+107,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+108,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+109,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+110,,,,,,,,,,"FuncExistsTableTag",3,1,1,"FIRST1 LAST1"
+111,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+112,,,,,,,,,,"FuncExistsTableTag",3,1,3,"first1@sun.com"
+113,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+114,,,,,,,,,,"FuncExistsTableTag",3,1,5,"SUN"
+115,,,,,,,,,,"FuncExistsTableTag",3,2,0,"<input type=""submit"" name=""_id5:_id15:1:_id17"" value=""&#35443;&#32048;"" />"
+116,,,,,,,,,,"FuncExistsTableTag",3,2,1,"FIRST2 LAST2"
+117,,,,,,,,,,"FuncExistsTableTag",3,2,2,"03-5999-2121"
+118,,,,,,,,,,"FuncExistsTableTag",3,2,3,"first2@sun.com"
+119,,,,,,,,,,"FuncExistsTableTag",3,2,4,"SOLARIS"
+120,,,,,,,,,,"FuncExistsTableTag",3,2,5,"SUN"
+121,,,,,,,,,,"FuncExistsTableTag",3,3,0,"<input type=""submit"" name=""_id5:_id15:2:_id17"" value=""&#35443;&#32048;"" />"
+122,,,,,,,,,,"FuncExistsTableTag",3,3,1,"FIRST3 LAST3"
+123,,,,,,,,,,"FuncExistsTableTag",3,3,2,"03-5999-2121"
+124,,,,,,,,,,"FuncExistsTableTag",3,3,3,"first3@sun.com"
+125,,,,,,,,,,"FuncExistsTableTag",3,3,4,"JAVA"
+126,,,,,,,,,,"FuncExistsTableTag",3,3,5,"SUN"
+127,,,,,,,,,,"FuncExistsTableTag",3,4,0,"<input type=""submit"" name=""_id5:_id15:3:_id17"" value=""&#35443;&#32048;"" />"
+128,,,,,,,,,,"FuncExistsTableTag",3,4,1,"FIRST4 LAST4"
+129,,,,,,,,,,"FuncExistsTableTag",3,4,2,"03-5999-2121"
+130,,,,,,,,,,"FuncExistsTableTag",3,4,3,"first4@sun.com"
+131,,,,,,,,,,"FuncExistsTableTag",3,4,4,"SOLARIS"
+132,,,,,,,,,,"FuncExistsTableTag",3,4,5,"SUN"
+133,,,,,,,,,,"FuncExistsTableTag",3,5,0,"<input type=""submit"" name=""_id5:_id15:4:_id17"" value=""&#35443;&#32048;"" />"
+134,,,,,,,,,,"FuncExistsTableTag",3,5,1,"FIRST5 LAST5"
+135,,,,,,,,,,"FuncExistsTableTag",3,5,2,"03-5999-2121"
+136,,,,,,,,,,"FuncExistsTableTag",3,5,3,"first5@sun.com"
+137,,,,,,,,,,"FuncExistsTableTag",3,5,4,"JAVA"
+138,,,,,,,,,,"FuncExistsTableTag",3,5,5,"SUN"
+139,,,,,,,,,,"FuncExistsTableTag",3,6,0,"<input type=""submit"" name=""_id5:_id15:5:_id17"" value=""&#35443;&#32048;"" />"
+140,,,,,,,,,,"FuncExistsTableTag",3,6,1,"FIRST6 LAST6"
+141,,,,,,,,,,"FuncExistsTableTag",3,6,2,"03-5999-2121"
+142,,,,,,,,,,"FuncExistsTableTag",3,6,3,"first6@sun.com"
+143,,,,,,,,,,"FuncExistsTableTag",3,6,4,"SPARC"
+144,,,,,,,,,,"FuncExistsTableTag",3,6,5,"SUN"
+145,,,,,,,,,,"FuncExistsTableTag",3,7,0,"<input type=""submit"" name=""_id5:_id15:6:_id17"" value=""&#35443;&#32048;"" />"
+146,,,,,,,,,,"FuncExistsTableTag",3,7,1,"FIRST7 LAST7"
+147,,,,,,,,,,"FuncExistsTableTag",3,7,2,"03-5999-2121"
+148,,,,,,,,,,"FuncExistsTableTag",3,7,3,"first7@sun.com"
+149,,,,,,,,,,"FuncExistsTableTag",3,7,4,"SOLARIS"
+150,,,,,,,,,,"FuncExistsTableTag",3,7,5,"SUN"
+151,,,,,,,,,,"FuncExistsTableTag",3,8,0,"<input type=""submit"" name=""_id5:_id15:7:_id17"" value=""&#35443;&#32048;"" />"
+152,,,,,,,,,,"FuncExistsTableTag",3,8,1,"FIRST8 LAST8"
+153,,,,,,,,,,"FuncExistsTableTag",3,8,2,"03-5999-2121"
+154,,,,,,,,,,"FuncExistsTableTag",3,8,3,"first8@sun.com"
+155,,,,,,,,,,"FuncExistsTableTag",3,8,4,"JAVA"
+156,,,,,,,,,,"FuncExistsTableTag",3,8,5,"SUN"
+157,,,,,,,,,,"FuncExistsTableTag",3,9,0,"<input type=""submit"" name=""_id5:_id15:8:_id17"" value=""&#35443;&#32048;"" />"
+158,,,,,,,,,,"FuncExistsTableTag",3,9,1,"FIRST9 LAST9"
+159,,,,,,,,,,"FuncExistsTableTag",3,9,2,"03-5999-2121"
+160,,,,,,,,,,"FuncExistsTableTag",3,9,3,"first9@sun.com"
+161,,,,,,,,,,"FuncExistsTableTag",3,9,4,"JAVA"
+162,,,,,,,,,,"FuncExistsTableTag",3,9,5,"SUN"
+163,,,,,,,,,,"FuncExistsTableTag",3,10,0,"<input type=""submit"" name=""_id5:_id15:9:_id17"" value=""&#35443;&#32048;"" />"
+164,,,,,,,,,,"FuncExistsTableTag",3,10,1,"FIRST10 LAST10"
+165,,,,,,,,,,"FuncExistsTableTag",3,10,2,"03-5999-2121"
+166,,,,,,,,,,"FuncExistsTableTag",3,10,3,"first10@sun.com"
+167,,,,,,,,,,"FuncExistsTableTag",3,10,4,"JAVA"
+168,,,,,,,,,,"FuncExistsTableTag",3,10,5,"SUN"
+169,,,,,,,,,,"FuncExistsTableTag",3,11,0,"<input type=""submit"" name=""_id5:_id15:10:_id17"" value=""&#35443;&#32048;"" />"
+170,,,,,,,,,,"FuncExistsTableTag",3,11,1,"taro yamada"
+171,,,,,,,,,,"FuncExistsTableTag",3,11,2,"03-5999-2121"
+172,,,,,,,,,,"FuncExistsTableTag",3,11,3,"yamada@sun.com"
+173,,,,,,,,,,"FuncExistsTableTag",3,11,4,"JAVA"
+174,,,,,,,,,,"FuncExistsTableTag",3,11,5,"IBM"
+175,,,,,,,,,,"FuncExistsTableTag",3,12,0,"<input type=""submit"" name=""_id5:_id15:11:_id17"" value=""&#35443;&#32048;"" />"
+176,,,,,,,,,,"FuncExistsTableTag",3,12,1,"jiro yamadayama"
+177,,,,,,,,,,"FuncExistsTableTag",3,12,2,"03-5999-2121"
+178,,,,,,,,,,"FuncExistsTableTag",3,12,3,"yamadayama@sun.com"
+179,,,,,,,,,,"FuncExistsTableTag",3,12,4,"JAVA"
+180,,,,,,,,,,"FuncExistsTableTag",3,12,5,"IBM"
+181,,,,,,,,,,"FuncExistsTableTag",3,13,0,"<input type=""submit"" name=""_id5:_id15:12:_id17"" value=""&#35443;&#32048;"" />"
+182,,,,,,,,,,"FuncExistsTableTag",3,13,1,"FIRST11 LAST11"
+183,,,,,,,,,,"FuncExistsTableTag",3,13,2,"03-5999-2121"
+184,,,,,,,,,,"FuncExistsTableTag",3,13,3,"first11@sun.com"
+185,,,,,,,,,,"FuncExistsTableTag",3,13,4,"JAVA"
+186,,,,,,,,,,"FuncExistsTableTag",3,13,5,"IBM"
+187,,,,,,,,,,"FuncExistsTableTag",3,14,0,"<input type=""submit"" name=""_id5:_id15:13:_id17"" value=""&#35443;&#32048;"" />"
+188,,,,,,,,,,"FuncExistsTableTag",3,14,1,"FIRST12 LAST12"
+189,,,,,,,,,,"FuncExistsTableTag",3,14,2,"03-5999-2121"
+190,,,,,,,,,,"FuncExistsTableTag",3,14,3,"first12@sun.com"
+191,,,,,,,,,,"FuncExistsTableTag",3,14,4,"JAVA"
+192,,,,,,,,,,"FuncExistsTableTag",3,14,5,"MS"
+193,,,,,,,,,,"FuncExistsTableTag",3,15,0,"<input type=""submit"" name=""_id5:_id15:14:_id17"" value=""&#35443;&#32048;"" />"
+194,,,,,,,,,,"FuncExistsTableTag",3,15,1,"Takeshi Kitano"
+195,,,,,,,,,,"FuncExistsTableTag",3,15,2,"03-5999-2121"
+196,,,,,,,,,,"FuncExistsTableTag",3,15,3,"tk9999@sun.com"
+197,,,,,,,,,,"FuncExistsTableTag",3,15,4,"DOTNET"
+198,,,,,,,,,,"FuncExistsTableTag",3,15,5,"MS"
+199,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 2: All contition",,,,,,,,,,,,,,
+"概要:","検索条件を全て入力し1件一致データを検索表示させる(名前:taro、部署:JAVA、会社:IBM)",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の検索データを表示する",,,,,,,,,,,,,
+200,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+201,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+202,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+203,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+204,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,,,302,,
+205,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+206,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+207,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+208,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=taro&_id5%3A_id9=JAVA&_id5%3A_id11=IBM&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+209,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+210,,,,,,,,,,"FuncExistsTableTag",3,1,1,"taro yamada"
+211,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+212,,,,,,,,,,"FuncExistsTableTag",3,1,3,"yamada@sun.com"
+213,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+214,,,,,,,,,,"FuncExistsTableTag",3,1,5,"IBM"
+215,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 3: Name and Company",,,,,,,,,,,,,,
+"概要:","名前と会社名のみ指定する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","特定の顧客情報が表示される。",,,,,,,,,,,,,
+300,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+301,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+302,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+303,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+304,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+305,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+306,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+307,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+308,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=FIRST&_id5%3A_id9=&_id5%3A_id11=SUN&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+309,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+310,,,,,,,,,,"FuncExistsTableTag",3,1,1,"FIRST1 LAST1"
+311,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+312,,,,,,,,,,"FuncExistsTableTag",3,1,3,"first1@sun.com"
+313,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+314,,,,,,,,,,"FuncExistsTableTag",3,1,5,"SUN"
+315,,,,,,,,,,"FuncExistsTableTag",3,2,0,"<input type=""submit"" name=""_id5:_id15:1:_id17"" value=""&#35443;&#32048;"" />"
+316,,,,,,,,,,"FuncExistsTableTag",3,2,1,"FIRST2 LAST2"
+317,,,,,,,,,,"FuncExistsTableTag",3,2,2,"03-5999-2121"
+318,,,,,,,,,,"FuncExistsTableTag",3,2,3,"first2@sun.com"
+319,,,,,,,,,,"FuncExistsTableTag",3,2,4,"SOLARIS"
+320,,,,,,,,,,"FuncExistsTableTag",3,2,5,"SUN"
+321,,,,,,,,,,"FuncExistsTableTag",3,3,0,"<input type=""submit"" name=""_id5:_id15:2:_id17"" value=""&#35443;&#32048;"" />"
+322,,,,,,,,,,"FuncExistsTableTag",3,3,1,"FIRST3 LAST3"
+323,,,,,,,,,,"FuncExistsTableTag",3,3,2,"03-5999-2121"
+324,,,,,,,,,,"FuncExistsTableTag",3,3,3,"first3@sun.com"
+325,,,,,,,,,,"FuncExistsTableTag",3,3,4,"JAVA"
+326,,,,,,,,,,"FuncExistsTableTag",3,3,5,"SUN"
+327,,,,,,,,,,"FuncExistsTableTag",3,4,0,"<input type=""submit"" name=""_id5:_id15:3:_id17"" value=""&#35443;&#32048;"" />"
+328,,,,,,,,,,"FuncExistsTableTag",3,4,1,"FIRST4 LAST4"
+329,,,,,,,,,,"FuncExistsTableTag",3,4,2,"03-5999-2121"
+330,,,,,,,,,,"FuncExistsTableTag",3,4,3,"first4@sun.com"
+331,,,,,,,,,,"FuncExistsTableTag",3,4,4,"SOLARIS"
+332,,,,,,,,,,"FuncExistsTableTag",3,4,5,"SUN"
+333,,,,,,,,,,"FuncExistsTableTag",3,5,0,"<input type=""submit"" name=""_id5:_id15:4:_id17"" value=""&#35443;&#32048;"" />"
+334,,,,,,,,,,"FuncExistsTableTag",3,5,1,"FIRST5 LAST5"
+335,,,,,,,,,,"FuncExistsTableTag",3,5,2,"03-5999-2121"
+336,,,,,,,,,,"FuncExistsTableTag",3,5,3,"first5@sun.com"
+337,,,,,,,,,,"FuncExistsTableTag",3,5,4,"JAVA"
+338,,,,,,,,,,"FuncExistsTableTag",3,5,5,"SUN"
+339,,,,,,,,,,"FuncExistsTableTag",3,6,0,"<input type=""submit"" name=""_id5:_id15:5:_id17"" value=""&#35443;&#32048;"" />"
+340,,,,,,,,,,"FuncExistsTableTag",3,6,1,"FIRST6 LAST6"
+341,,,,,,,,,,"FuncExistsTableTag",3,6,2,"03-5999-2121"
+342,,,,,,,,,,"FuncExistsTableTag",3,6,3,"first6@sun.com"
+343,,,,,,,,,,"FuncExistsTableTag",3,6,4,"SPARC"
+344,,,,,,,,,,"FuncExistsTableTag",3,6,5,"SUN"
+345,,,,,,,,,,"FuncExistsTableTag",3,7,0,"<input type=""submit"" name=""_id5:_id15:6:_id17"" value=""&#35443;&#32048;"" />"
+346,,,,,,,,,,"FuncExistsTableTag",3,7,1,"FIRST7 LAST7"
+347,,,,,,,,,,"FuncExistsTableTag",3,7,2,"03-5999-2121"
+348,,,,,,,,,,"FuncExistsTableTag",3,7,3,"first7@sun.com"
+349,,,,,,,,,,"FuncExistsTableTag",3,7,4,"SOLARIS"
+350,,,,,,,,,,"FuncExistsTableTag",3,7,5,"SUN"
+351,,,,,,,,,,"FuncExistsTableTag",3,8,0,"<input type=""submit"" name=""_id5:_id15:7:_id17"" value=""&#35443;&#32048;"" />"
+352,,,,,,,,,,"FuncExistsTableTag",3,8,1,"FIRST8 LAST8"
+353,,,,,,,,,,"FuncExistsTableTag",3,8,2,"03-5999-2121"
+354,,,,,,,,,,"FuncExistsTableTag",3,8,3,"first8@sun.com"
+355,,,,,,,,,,"FuncExistsTableTag",3,8,4,"JAVA"
+356,,,,,,,,,,"FuncExistsTableTag",3,8,5,"SUN"
+357,,,,,,,,,,"FuncExistsTableTag",3,9,0,"<input type=""submit"" name=""_id5:_id15:8:_id17"" value=""&#35443;&#32048;"" />"
+358,,,,,,,,,,"FuncExistsTableTag",3,9,1,"FIRST9 LAST9"
+359,,,,,,,,,,"FuncExistsTableTag",3,9,2,"03-5999-2121"
+360,,,,,,,,,,"FuncExistsTableTag",3,9,3,"first9@sun.com"
+361,,,,,,,,,,"FuncExistsTableTag",3,9,4,"JAVA"
+362,,,,,,,,,,"FuncExistsTableTag",3,9,5,"SUN"
+363,,,,,,,,,,"FuncExistsTableTag",3,10,0,"<input type=""submit"" name=""_id5:_id15:9:_id17"" value=""&#35443;&#32048;"" />"
+364,,,,,,,,,,"FuncExistsTableTag",3,10,1,"FIRST10 LAST10"
+365,,,,,,,,,,"FuncExistsTableTag",3,10,2,"03-5999-2121"
+366,,,,,,,,,,"FuncExistsTableTag",3,10,3,"first10@sun.com"
+367,,,,,,,,,,"FuncExistsTableTag",3,10,4,"JAVA"
+368,,,,,,,,,,"FuncExistsTableTag",3,10,5,"SUN"
+369,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 4: Name and Department ",,,,,,,,,,,,,,
+"概要:","名前と部署名を条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の顧客情報が表示される。",,,,,,,,,,,,,
+400,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+401,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+402,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+403,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+404,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+405,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+406,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+407,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+408,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=LAST&_id5%3A_id9=JAVA&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+409,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+410,,,,,,,,,,"FuncExistsTableTag",3,1,1,"FIRST1 LAST1"
+411,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+412,,,,,,,,,,"FuncExistsTableTag",3,1,3,"first1@sun.com"
+413,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+414,,,,,,,,,,"FuncExistsTableTag",3,1,5,"SUN"
+421,,,,,,,,,,"FuncExistsTableTag",3,2,0,"<input type=""submit"" name=""_id5:_id15:1:_id17"" value=""&#35443;&#32048;"" />"
+422,,,,,,,,,,"FuncExistsTableTag",3,2,1,"FIRST3 LAST3"
+423,,,,,,,,,,"FuncExistsTableTag",3,2,2,"03-5999-2121"
+424,,,,,,,,,,"FuncExistsTableTag",3,2,3,"first3@sun.com"
+425,,,,,,,,,,"FuncExistsTableTag",3,2,4,"JAVA"
+426,,,,,,,,,,"FuncExistsTableTag",3,2,5,"SUN"
+433,,,,,,,,,,"FuncExistsTableTag",3,3,0,"<input type=""submit"" name=""_id5:_id15:2:_id17"" value=""&#35443;&#32048;"" />"
+434,,,,,,,,,,"FuncExistsTableTag",3,3,1,"FIRST5 LAST5"
+435,,,,,,,,,,"FuncExistsTableTag",3,3,2,"03-5999-2121"
+436,,,,,,,,,,"FuncExistsTableTag",3,3,3,"first5@sun.com"
+437,,,,,,,,,,"FuncExistsTableTag",3,3,4,"JAVA"
+438,,,,,,,,,,"FuncExistsTableTag",3,3,5,"SUN"
+451,,,,,,,,,,"FuncExistsTableTag",3,4,0,"<input type=""submit"" name=""_id5:_id15:3:_id17"" value=""&#35443;&#32048;"" />"
+452,,,,,,,,,,"FuncExistsTableTag",3,4,1,"FIRST8 LAST8"
+453,,,,,,,,,,"FuncExistsTableTag",3,4,2,"03-5999-2121"
+454,,,,,,,,,,"FuncExistsTableTag",3,4,3,"first8@sun.com"
+455,,,,,,,,,,"FuncExistsTableTag",3,4,4,"JAVA"
+456,,,,,,,,,,"FuncExistsTableTag",3,4,5,"SUN"
+457,,,,,,,,,,"FuncExistsTableTag",3,5,0,"<input type=""submit"" name=""_id5:_id15:4:_id17"" value=""&#35443;&#32048;"" />"
+458,,,,,,,,,,"FuncExistsTableTag",3,5,1,"FIRST9 LAST9"
+459,,,,,,,,,,"FuncExistsTableTag",3,5,2,"03-5999-2121"
+460,,,,,,,,,,"FuncExistsTableTag",3,5,3,"first9@sun.com"
+461,,,,,,,,,,"FuncExistsTableTag",3,5,4,"JAVA"
+462,,,,,,,,,,"FuncExistsTableTag",3,5,5,"SUN"
+463,,,,,,,,,,"FuncExistsTableTag",3,6,0,"<input type=""submit"" name=""_id5:_id15:5:_id17"" value=""&#35443;&#32048;"" />"
+464,,,,,,,,,,"FuncExistsTableTag",3,6,1,"FIRST10 LAST10"
+465,,,,,,,,,,"FuncExistsTableTag",3,6,2,"03-5999-2121"
+466,,,,,,,,,,"FuncExistsTableTag",3,6,3,"first10@sun.com"
+467,,,,,,,,,,"FuncExistsTableTag",3,6,4,"JAVA"
+468,,,,,,,,,,"FuncExistsTableTag",3,6,5,"SUN"
+481,,,,,,,,,,"FuncExistsTableTag",3,7,0,"<input type=""submit"" name=""_id5:_id15:6:_id17"" value=""&#35443;&#32048;"" />"
+482,,,,,,,,,,"FuncExistsTableTag",3,7,1,"FIRST11 LAST11"
+483,,,,,,,,,,"FuncExistsTableTag",3,7,2,"03-5999-2121"
+484,,,,,,,,,,"FuncExistsTableTag",3,7,3,"first11@sun.com"
+485,,,,,,,,,,"FuncExistsTableTag",3,7,4,"JAVA"
+486,,,,,,,,,,"FuncExistsTableTag",3,7,5,"IBM"
+487,,,,,,,,,,"FuncExistsTableTag",3,8,0,"<input type=""submit"" name=""_id5:_id15:7:_id17"" value=""&#35443;&#32048;"" />"
+488,,,,,,,,,,"FuncExistsTableTag",3,8,1,"FIRST12 LAST12"
+489,,,,,,,,,,"FuncExistsTableTag",3,8,2,"03-5999-2121"
+490,,,,,,,,,,"FuncExistsTableTag",3,8,3,"first12@sun.com"
+491,,,,,,,,,,"FuncExistsTableTag",3,8,4,"JAVA"
+492,,,,,,,,,,"FuncExistsTableTag",3,8,5,"MS"
+493,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 5: Department and Company",,,,,,,,,,,,,,
+"概要:","部署名と会社名を条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の顧客情報が表示される。",,,,,,,,,,,,,
+500,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+501,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+502,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+503,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+504,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+505,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+506,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+507,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+508,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=JAVA&_id5%3A_id11=SUN&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+509,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+510,,,,,,,,,,"FuncExistsTableTag",3,1,1,"FIRST1 LAST1"
+511,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+512,,,,,,,,,,"FuncExistsTableTag",3,1,3,"first1@sun.com"
+513,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+514,,,,,,,,,,"FuncExistsTableTag",3,1,5,"SUN"
+521,,,,,,,,,,"FuncExistsTableTag",3,2,0,"<input type=""submit"" name=""_id5:_id15:1:_id17"" value=""&#35443;&#32048;"" />"
+522,,,,,,,,,,"FuncExistsTableTag",3,2,1,"FIRST3 LAST3"
+523,,,,,,,,,,"FuncExistsTableTag",3,2,2,"03-5999-2121"
+524,,,,,,,,,,"FuncExistsTableTag",3,2,3,"first3@sun.com"
+525,,,,,,,,,,"FuncExistsTableTag",3,2,4,"JAVA"
+526,,,,,,,,,,"FuncExistsTableTag",3,2,5,"SUN"
+533,,,,,,,,,,"FuncExistsTableTag",3,3,0,"<input type=""submit"" name=""_id5:_id15:2:_id17"" value=""&#35443;&#32048;"" />"
+534,,,,,,,,,,"FuncExistsTableTag",3,3,1,"FIRST5 LAST5"
+535,,,,,,,,,,"FuncExistsTableTag",3,3,2,"03-5999-2121"
+536,,,,,,,,,,"FuncExistsTableTag",3,3,3,"first5@sun.com"
+537,,,,,,,,,,"FuncExistsTableTag",3,3,4,"JAVA"
+538,,,,,,,,,,"FuncExistsTableTag",3,3,5,"SUN"
+551,,,,,,,,,,"FuncExistsTableTag",3,4,0,"<input type=""submit"" name=""_id5:_id15:3:_id17"" value=""&#35443;&#32048;"" />"
+552,,,,,,,,,,"FuncExistsTableTag",3,4,1,"FIRST8 LAST8"
+553,,,,,,,,,,"FuncExistsTableTag",3,4,2,"03-5999-2121"
+554,,,,,,,,,,"FuncExistsTableTag",3,4,3,"first8@sun.com"
+555,,,,,,,,,,"FuncExistsTableTag",3,4,4,"JAVA"
+556,,,,,,,,,,"FuncExistsTableTag",3,4,5,"SUN"
+557,,,,,,,,,,"FuncExistsTableTag",3,5,0,"<input type=""submit"" name=""_id5:_id15:4:_id17"" value=""&#35443;&#32048;"" />"
+558,,,,,,,,,,"FuncExistsTableTag",3,5,1,"FIRST9 LAST9"
+559,,,,,,,,,,"FuncExistsTableTag",3,5,2,"03-5999-2121"
+560,,,,,,,,,,"FuncExistsTableTag",3,5,3,"first9@sun.com"
+561,,,,,,,,,,"FuncExistsTableTag",3,5,4,"JAVA"
+562,,,,,,,,,,"FuncExistsTableTag",3,5,5,"SUN"
+563,,,,,,,,,,"FuncExistsTableTag",3,6,0,"<input type=""submit"" name=""_id5:_id15:5:_id17"" value=""&#35443;&#32048;"" />"
+564,,,,,,,,,,"FuncExistsTableTag",3,6,1,"FIRST10 LAST10"
+565,,,,,,,,,,"FuncExistsTableTag",3,6,2,"03-5999-2121"
+566,,,,,,,,,,"FuncExistsTableTag",3,6,3,"first10@sun.com"
+567,,,,,,,,,,"FuncExistsTableTag",3,6,4,"JAVA"
+568,,,,,,,,,,"FuncExistsTableTag",3,6,5,"SUN"
+569,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 6: Company only",,,,,,,,,,,,,,
+"概要:","会社名のみを条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の会社に属する顧客情報が表示される。",,,,,,,,,,,,,
+600,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+601,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+602,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+603,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+604,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+605,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+606,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+607,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+608,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=IBM&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+609,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+610,,,,,,,,,,"FuncExistsTableTag",3,1,1,"taro yamada"
+611,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+612,,,,,,,,,,"FuncExistsTableTag",3,1,3,"yamada@sun.com"
+613,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+614,,,,,,,,,,"FuncExistsTableTag",3,1,5,"IBM"
+615,,,,,,,,,,"FuncExistsTableTag",3,2,0,"<input type=""submit"" name=""_id5:_id15:1:_id17"" value=""&#35443;&#32048;"" />"
+616,,,,,,,,,,"FuncExistsTableTag",3,2,1,"jiro yamadayama"
+617,,,,,,,,,,"FuncExistsTableTag",3,2,2,"03-5999-2121"
+618,,,,,,,,,,"FuncExistsTableTag",3,2,3,"yamadayama@sun.com"
+619,,,,,,,,,,"FuncExistsTableTag",3,2,4,"JAVA"
+620,,,,,,,,,,"FuncExistsTableTag",3,2,5,"IBM"
+621,,,,,,,,,,"FuncExistsTableTag",3,3,0,"<input type=""submit"" name=""_id5:_id15:2:_id17"" value=""&#35443;&#32048;"" />"
+622,,,,,,,,,,"FuncExistsTableTag",3,3,1,"FIRST11 LAST11"
+623,,,,,,,,,,"FuncExistsTableTag",3,3,2,"03-5999-2121"
+624,,,,,,,,,,"FuncExistsTableTag",3,3,3,"first11@sun.com"
+625,,,,,,,,,,"FuncExistsTableTag",3,3,4,"JAVA"
+626,,,,,,,,,,"FuncExistsTableTag",3,3,5,"IBM"
+627,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 7: Customer and Company",,,,,,,,,,,,,,
+"概要:","顧客名、会社名を条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の顧客、会社に属する顧客情報が表示される。",,,,,,,,,,,,,
+700,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+701,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+702,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+703,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+704,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+705,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+706,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+707,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+708,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=taro&_id5%3A_id9=&_id5%3A_id11=IBM&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+709,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+710,,,,,,,,,,"FuncExistsTableTag",3,1,1,"taro yamada"
+711,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+712,,,,,,,,,,"FuncExistsTableTag",3,1,3,"yamada@sun.com"
+713,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+714,,,,,,,,,,"FuncExistsTableTag",3,1,5,"IBM"
+715,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 8: Customer only",,,,,,,,,,,,,,
+"概要:","顧客名のみを条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の顧客名に属する顧客情報が表示される。",,,,,,,,,,,,,
+800,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+801,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+802,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+803,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+804,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+805,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+806,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+807,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+808,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=taro&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+809,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+810,,,,,,,,,,"FuncExistsTableTag",3,1,1,"taro yamada"
+811,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+812,,,,,,,,,,"FuncExistsTableTag",3,1,3,"yamada@sun.com"
+813,,,,,,,,,,"FuncExistsTableTag",3,1,4,"JAVA"
+814,,,,,,,,,,"FuncExistsTableTag",3,1,5,"IBM"
+815,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 9: Department only",,,,,,,,,,,,,,
+"概要:","部署名のみを条件に検索する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","該当の部署名に属する顧客情報が表示される。",,,,,,,,,,,,,
+900,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+901,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+902,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+903,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+904,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+905,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+906,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+907,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+908,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+909,,,,,,,,,,"FuncExistsTableTag",3,1,0,"<input type=""submit"" name=""_id5:_id15:0:_id17"" value=""&#35443;&#32048;"" />"
+910,,,,,,,,,,"FuncExistsTableTag",3,1,1,"Takeshi Kitano"
+911,,,,,,,,,,"FuncExistsTableTag",3,1,2,"03-5999-2121"
+912,,,,,,,,,,"FuncExistsTableTag",3,1,3,"tk9999@sun.com"
+913,,,,,,,,,,"FuncExistsTableTag",3,1,4,"DOTNET"
+914,,,,,,,,,,"FuncExistsTableTag",3,1,5,"MS"
+915,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+"TestCase 10: Find counting ",,,,,,,,,,,,,,
+"概要:","検索回数の増加を確認する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","検索回数がインクリメントされている。",,,,,,,,,,,,,
+1000,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+1001,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+1002,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+1003,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+1004,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,,"FuncCheckStatusCode","==",302,,
+1005,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+1006,"GET","${urlBase}/",,"${userAgent}",,,,,,"FuncPrintHtml",,,,
+1007,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>",,,
+1008,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+1009,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 1 &#22238;"
+1010,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+1011,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 2 &#22238;"
+1013,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+1014,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 3 &#22238;"
+1015,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+1016,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 4 &#22238;"
+1017,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=DOTNET&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,,"FuncExistsString","<title>Customer List</title>","FuncExistsString","<th scope=""col"">&#39015;&#23458;</th>",
+1018,,,,,,,,,,"FuncExistsString","&#22238;&#25968;&#65306; 5 &#22238;"

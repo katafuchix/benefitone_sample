@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+  
+<hibernate-mapping> 
+<!-- package="jp.co.benefitone.model.customer" -->
+  <class name="jp.co.benefitone.model.customer.CompanyVO" 
+         table="EX_COMPANY"
+         lazy="false">
+
+    <!-- Primary Key -->
+    <id name="id"
+        type="java.lang.Integer"
+        unsaved-value="null"
+        column="ID">
+      <generator class="sequence">
+        <param name="sequence">id_company</param>
+      </generator>
+
+    </id>
+
+    <!-- column -->
+    <property name="name"
+              type="java.lang.String"
+              column="NAME"
+              not-null="true"
+              unique="true"
+              length="100"/>
+
+    <!-- Association -->
+<!--
+    <set name="customers"
+         lazy="true"
+         inverse="true"
+         cascade="none">
+      <key>
+        <column name="COMPANY_ID"/>
+      </key>
+      <one-to-many class="jp.co.benefitone.model.customer.CustomerVO"/>
+    </set>
+
+    <set name="departments"
+         lazy="true"
+         inverse="true"
+         cascade="none">
+      <key>
+        <column name="COMPANY_ID" />
+      </key>
+      <one-to-many class="jp.co.benefitone.model.customer.DepartmentVO"/>
+    </set>
+    -->
+  </class>
+</hibernate-mapping>

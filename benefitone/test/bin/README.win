@@ -1,0 +1,78 @@
+======================================================================
+  $RCSfile: README.win,v $
+ $Revision: 1.1.1.1 $
+   $Author: gon $
+     $Date: 2006/01/29 13:03:25 $
+Originator: kei.omizo@sun.com
+OriginDate: 2005/04/22
+======================================================================
+0. はじめに
+本テストケースの実行には、TestCaseTool を利用します。
+テストケースは、testcase ディレクトリに保存されており、結果は testresult
+ディレクトリの保存されます。
+
+1. 準備
+
+1.1. JDK
+(1) JDK のダウンロード
+JDK を以下のサイトからダウンロードします。
+http://java.sun.com
+
+1.2. TestCaseTool
+(1)TestCaseTool のダウンロード
+TestCaseTool を以下のサイトからダウンロードします。
+http://www5f.biglobe.ne.jp/~webtest/testcasetool/
+
+(2) インストール
+ダウンロードしたアーカイブを、任意のディレクトリに展開します。
+
+1.2. Oracle
+TestCaseTool 実行時に、サンプルデータの初期化を行う場合は、Oracle の
+実行環境を利用する必要があります。
+Oracle にパスを通すか、クライアントランタイムをインストールしてください。
+
+※サンプルデータの初期化を行わない場合は、これは必要ありません。
+(1) Oracle のダウンロード
+オラクル（クライアント）を以下のサイトからダウンロードします。
+http://www.oracle.co.jp
+
+
+2. テストケースの実施
+テストケース実行用のスクリプトは、
+[トップディレクトリ]\benefitone-common\sample\test\bin
+で実行します。
+※[トップディレクトリ]は、benefitone-common モジュールを展開した、
+cvs のトップディレクトリです。
+
+(1) 環境変数
+TESTCASETOOL_HOME  TestCaseTool のインストールディレクトリ
+JAVA_HOME          JDK インストールディレクトリ
+
+以下は、サンプルデータの初期化を行う場合のオプションです。
+ORACLE_SID         オラクル SID
+ORACLE_USER        オラクルのログインユーザ名
+ORACLE_PASSWD      オラクルのログインユーザのパスワード
+
+【例】
+    TESTCASETOOL_HOME=C:\TestCaseTool\TestCaseTool1.2.10
+    JAVA_HOME=C:\Java\j2sdk1.4.2_07
+    ORACLE_SID=SVR
+    ORACLE_USER=b1user
+    ORACLE_PASSWD=b1passwd
+
+(2) データの初期化なしの実行
+    % TestCaseRunner.bat
+
+(3) オプションを指定した実行
+オプションを指定する場合は、TestCaseRunner.sh のオプションを先に指定し、
+その後ろに TestCaseTool のオプションを指定します。
+【例】 ヘルプを表示する
+    % TestCaseRunner.bat --help
+または
+    % TestCaseRunner.bat --h
+
+【例】サンプルデータを初期化してから、テストケースを実行する
+    % TestCaseRunner.bat --initdata
+
+【例】TestCaseTool のメール送信オプションを指定して、テストケースを実行する
+    % TestCaseRunner.bat --initdata me@myhost notify@myhost

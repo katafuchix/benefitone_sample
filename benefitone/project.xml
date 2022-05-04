@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:maven="jelly:maven"
+         xmlns:ant="jelly:ant">
+
+  <pomVersion>3</pomVersion>
+  <id>benefitone-sample</id>
+  <name>ベネフィット・ワン サンプルアプリケーション</name>
+  <currentVersion>1.0</currentVersion>
+
+  <organization>
+    <name>サン・マイクロシステムズ株式会社</name>
+    <url>http://jp.sun.com/</url>
+    <logo>http://jp.sun.com/im/sun_logo.gif</logo>
+  </organization>
+
+  <inceptionYear>2005</inceptionYear>
+  <package>jp.co.benefitone.common</package>
+  <logo>http://www.benefit-one.co.jp/Benefit-one/BE-ONE/Official/img/logo_benefitone_s.gif</logo>
+  <description>ベネフィット・ワン アプリケーション・フレームワーク。4月初にフレームワーク部分をリリース、5月初にサンプル・アプリケーションをリリース予定。</description>
+  <shortDescription>ベネフィット・ワン アプリケーション・フレームワーク</shortDescription>
+
+  <url>http://ap-web.japan.sun.com/proj/b1/</url>
+  <issueTrackingUrl>http://ap-web.japan.sun.com/proj/b1/wiki/wiki.cgi</issueTrackingUrl>
+  <siteAddress>ap-web.japan.sun.com</siteAddress>
+  <siteDirectory>/proj/b1/</siteDirectory>
+  <distributionDirectory>/proj/b1/</distributionDirectory>
+
+  <repository>
+    <connection>scm:cvs::pserver:tn140976@nozomi:/export/b1/cvs</connection>
+    <url>http://ap-web.japan.sun.com/proj/b1/viewcvs/benefitone-common/sample</url>
+  </repository>
+
+  <mailingLists/>
+  <developers/>
+
+  <dependencies>
+    <dependency>
+      <groupId>aopalliance</groupId>
+      <artifactId>aopalliance</artifactId>
+      <version>1.0</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-j2ee</artifactId>
+      <version>1.4-rc4</version>
+      <properties>
+        <war.bundle>false</war.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>1.1.4</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.0.2</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm</artifactId>
+      <version>1.4.3</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>odmg</groupId>
+      <artifactId>odmg</artifactId>
+      <version>3.0</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>1.1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>7.4-215-jdbc3</version>
+      <properties>
+        <war.bundle>false</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>oracle</groupId>
+      <artifactId>oraclejdbcthin</artifactId>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+
+    <dependency>
+      <groupId>appserv-rt</groupId>
+      <artifactId>appserv-rt</artifactId>
+      <properties>
+        <war.bundle>false</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jsf</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>1.1.01</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.5.2</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>2.1.8</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>benefitone</groupId>
+      <artifactId>benefitone-tool</artifactId>
+      <version>1.0_beta1</version>
+      <properties>
+        <war.bundle>false</war.bundle>
+        <ear.bundle>false</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>benefitone</groupId>
+      <artifactId>benefitone-security</artifactId>
+      <version>1.0_beta1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>benefitone</groupId>
+      <artifactId>benefitone-common</artifactId>
+      <version>1.0_beta1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+
+<!--
+    <dependency>
+      <groupId>dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>2.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>maven-plugins</groupId>
+      <artifactId>maven-dbunit-plugin</artifactId>
+      <version>1.5</version>
+    </dependency>
+  -->
+
+
+  </dependencies>
+
+
+<!--
+  <dependencies>
+    <dependency>
+      <groupId>statcvs</groupId>
+      <artifactId>maven-statcvs-plugin</artifactId>
+      <version>2.5</version>
+      <type>plugin</type>
+    </dependency>
+  </dependencies>
+-->
+
+  <reports>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <!-- <report>maven-findbugs-plugin</report> -->
+    <!-- <report>maven-statcvs-plugin</report> -->
+    <!-- <report>maven-changelog-plugin</report> -->
+    <!-- <report>maven-developer-activity-plugin</report> -->
+    <!-- <report>maven-file-activity-plugin</report> -->
+    <!-- <report>maven-license-plugin</report> -->
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+    <report>maven-tasklist-plugin</report>
+  </reports>
+    
+  <build>
+    <nagEmailAddress>takashi.nishigaya@sun.com</nagEmailAddress>
+    <sourceDirectory>${basedir}/src</sourceDirectory>
+    <unitTestSourceDirectory>${basedir}/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/AllTest.java</exclude>
+      </excludes>
+      <resources>
+        <resource>
+          <directory>src</directory>
+          <includes>
+            <include>**/*.hbm.xml</include>
+          </includes>
+        </resource>
+        <resource>
+          <directory>test</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </resource>
+        <resource>
+          <directory>test/conf</directory>
+          <includes>
+            <include>*.xml</include>
+          </includes>
+        </resource>
+         <resource>
+          <directory>web/WEB-INF/classes</directory>
+          <includes>
+            <include>*.xml</include>
+            <include>*.properties</include>
+          </includes>
+        </resource>
+      </resources>
+    </unitTest>
+    <resources>
+      <resource>
+        <directory>${basedir}/conf</directory>
+        <includes>
+          <include>*.properties</include>
+          <include>*.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+</project>

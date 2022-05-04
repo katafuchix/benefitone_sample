@@ -1,0 +1,30 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,
+"TestCase 0: Initialization.",,,,,,,,,,,,
+1,,,,,,,,,,"FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo"
+2,,,,,,,,,,"FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)"
+"TestCase 1: Normal path",,,,,,,,,,,,
+"概要:","検索条件を指定せず、全件検索し、詳細表示する。",,,,,,,,,,,
+"事前条件:","管理者権限でログインしていること。",,,,,,,,,,,
+"事後条件:","新規顧客入力画面が表示されること。",,,,,,,,,,,
+100,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",
+101,"GET","${urlBase}",,"${userAgent}",,,,,,,,
+102,"GET","${urlBase}/",,"${userAgent}",,,,,,,,
+103,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,
+104,"POST","${urlBase}/j_security_check","j_username=manager&j_password=manager","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html"
+105,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,
+106,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,
+107,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",
+108,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id14=%90V%8BK%8C%DA%8Bq&_id5=_id5","${userAgent}",,,,,"新規顧客入力画面が表示されている","FuncExistsString","<title>Customer Edit</title>",
+"TestCase 1: Normal path",,,,,,,,,,,,
+"概要:","検索条件を指定せず、全件検索し、詳細表示する。",,,,,,,,,,,
+"事前条件:","管理者権限のないユーザでログインしていること。",,,,,,,,,,,
+"事後条件:","新規顧客入力画面が表示されないこと。",,,,,,,,,,,
+100,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",
+101,"GET","${urlBase}",,"${userAgent}",,,,,,,,
+102,"GET","${urlBase}/",,"${userAgent}",,,,,,,,
+103,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,
+104,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html"
+105,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,
+106,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,
+107,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",
+108,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id14=%90V%8BK%8C%DA%8Bq&_id5=_id5","${userAgent}",,,,,"エラー画面が表示されている。「セキュリティ違反です。」","FuncPrintHtml","FuncExistsString","&#39015;&#23458;&#31649;&#29702;&#12471;&#12473;&#12486;&#12512;"

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<!DOCTYPE beans PUBLIC 
+  "-//SPRING//DTD BEAN//EN" 
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <!-- BusinessSession管理インターセプタ -->
+  <bean name="businessSessionInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.session.BusinessSessionManagerInterceptor">
+    <property name="businessSessionManager">
+      <bean class="jp.co.benefitone.common.fw.web.WebBusinessSessionManager"/>
+    </property>
+  </bean>
+
+  <!-- ビジネス・セッション管理のポイントカット定義 -->
+  <bean id="sessionAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="businessSessionInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+Service\..+</value>
+    </property>
+  </bean>
+
+  <!-- 自動プロキシーの利用 -->
+  <bean id="autoProxyCreator"
+        class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+  <bean name="oracleDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName"><value>oracle.jdbc.OracleDriver</value></property>
+    <property name="url"><value>jdbc:oracle:thin:@192.168.0.21:1521:TorinoDB</value></property>
+    <property name="username"><value>torino-dev</value></property>
+    <property name="password"><value>mstit121sol</value></property>
+  </bean>
+
+  <bean name="b1SessionFactory"
+        class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+    <property name="mappingResources">
+      <list>
+        <value>jp/co/benefitone/model/customer/CustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DepartmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CompanyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/course/BntyTypeVO.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.Oracle9Dialect</prop>
+        <!--
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.PostgreSQLDialect</prop>
+        -->
+        <prop key="show_sql">false</prop>
+      </props>
+    </property>
+    <property name="dataSource">
+      <ref bean="oracleDataSource"/>
+    </property>
+  </bean>
+
+  <bean name="customerDAO" class="jp.co.benefitone.integration.customer.CustomerDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="b1SessionFactory"/>
+    </property>
+  </bean>
+
+  <bean name="categoryDAO" class="jp.co.benefitone.integration.course.impl.CategoryDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="b1SessionFactory"/>
+    </property>
+  </bean>
+
+  <bean name="courseClassDAO" class="jp.co.benefitone.integration.course.CourseClassDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="b1SessionFactory"/>
+    </property>
+  </bean>
+
+  <bean name="courseMenuFeeMaintenanceDAO" class="jp.co.benefitone.integration.course.CourseMenuFeeMaintenanceDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="b1SessionFactory"/>
+    </property>
+  </bean>
+
+</beans>

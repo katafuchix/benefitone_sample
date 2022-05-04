@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<!DOCTYPE faces-config PUBLIC 
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" 
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+  <application>
+    <variable-resolver>
+      org.springframework.web.jsf.DelegatingVariableResolver
+    </variable-resolver>
+  </application>
+
+  <!-- Error handler bean -->
+  <managed-bean>
+    <managed-bean-name>errorHandlerBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.common.fw.web.ErrorHandlerBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>forwardMap</property-name>
+      <map-entries>
+        <map-entry>
+          <key>java.lang.SecurityException</key>
+          <value>error.security</value>
+        </map-entry>
+        <map-entry>
+          <key>javax.ejb.AccessLocalException</key>
+          <value>error.security</value>
+        </map-entry>
+        <map-entry>
+          <key>jp.co.benefitone.common.fw.web.InvalidTokenException</key>
+          <value>error.token</value>
+        </map-entry>
+      </map-entries>
+    </managed-property>
+  </managed-bean>
+
+  <!-- WebBusinessSessionFactoryBean -->
+  <managed-bean>
+    <managed-bean-name>customerSession</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.common.fw.web.WebBusinessSessionFactoryBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>attributeNames</property-name>
+      <list-entries>
+        <value>findStatistics</value>
+        <value>criteria</value>
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+
+  <!-- ログアウト -->
+  <managed-bean>
+    <managed-bean-name>logoutBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.common.fw.web.LogoutBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <!-- 検索条件 -->
+  <managed-bean>
+    <managed-bean-name>criteria</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.business.customer.FindCustomerCriteria
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!-- 統計情報 -->
+  <managed-bean>
+    <managed-bean-name>findStatistics</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.business.customer.FindStatistics
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!-- 顧客情報編集用 -->
+  <managed-bean>
+    <managed-bean-name>tmpCustomer</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.model.customer.CustomerVO
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!-- 選択中の顧客情報(詳細表示用) -->
+  <managed-bean>
+    <managed-bean-name>selectedCustomer</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.model.customer.CustomerVO
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!-- トークンチェック(二度押しチェック) -->
+  <managed-bean>
+    <managed-bean-name>tokenBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.common.fw.web.TokenBean
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>errorPage</property-name>
+      <value>/errorSecurity.jsp</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- 顧客情報検索画面 -->
+  <managed-bean>
+    <managed-bean-name>customerListBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.web.customer.CustomerListBean
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>findCustomerCriteria</property-name>
+      <value>#{criteria}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>customerFindService</property-name>
+      <value>#{CustomerFindService}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>customerManageService</property-name>
+      <value>#{CustomerManageService}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>businessSessionFactoryBean</property-name>
+      <value>#{customerSession}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>errorHandlerBean</property-name>
+      <value>#{errorHandlerBean}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- 顧客情報詳細表示画面 -->
+  <managed-bean>
+    <managed-bean-name>customerDetailsBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.web.customer.CustomerDetailsBean
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>selectedCustomer</property-name>
+      <value>#{selectedCustomer}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>customerFindService</property-name>
+      <value>#{CustomerFindService}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>errorHandlerBean</property-name>
+      <value>#{errorHandlerBean}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- 顧客情報編集画面 -->
+  <managed-bean>
+    <managed-bean-name>detailsForm</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.web.customer.CustomerDetailsFormBean
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>customerManageService</property-name>
+      <value>#{CustomerManageService}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>tmpCustomer</property-name>
+      <value>#{tmpCustomer}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>businessSessionFactoryBean</property-name>
+      <value>#{customerSession}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>errorHandlerBean</property-name>
+      <value>#{errorHandlerBean}</value>
+    </managed-property>
+    <!-- 検索結果引き渡し用 -->
+    <managed-property>
+      <property-name>customerListBean</property-name>
+      <value>#{customerListBean}</value>
+    </managed-property>
+  </managed-bean>
+
+
+  <!-- コース料金検索結果表示画面 -->
+  <managed-bean>
+    <managed-bean-name>courseMenuFeeMaintenanceBean</managed-bean-name>
+    <managed-bean-class>
+      jp.co.benefitone.presentation.course.CourseMenuFeeMaintenanceBean
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>courseMenuFeeMaintenanceService</property-name>
+      <value>#{CourseMenuFeeMaintenanceService}</value>
+    </managed-property>
+    <managed-property>
+      <property-name></property-name>
+      <value>#{customerSession}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>errorHandlerBean</property-name>
+      <value>#{errorHandlerBean}</value>
+    </managed-property>
+  </managed-bean>
+
+
+</faces-config>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+  
+<hibernate-mapping> 
+<!-- package="jp.co.benefitone.model.menu" -->
+  <class name="jp.co.benefitone.model.menu.MenuStractureTypeVO" 
+         table="M_MENU_STRCTR_TYPE"
+         lazy="false">
+
+    <!-- Primary Key -->
+    <id name="id"
+        type="java.lang.Integer"
+        column="MENU_STRCTR_TYPE_KEY">
+      <generator class="sequence">
+        <param name="sequence">id_department</param>
+      </generator>
+    </id>
+	
+    <!-- column -->
+    <property name="cd"
+              type="java.lang.String"
+              unsaved-value="null"
+              column="MENU_STRCTR_TYPE_CD"
+              not-null="true"
+              unique="true"
+              length="10" />
+
+    <!-- column -->
+    <property name="name"
+              type="java.lang.String"
+              column="MENU_STRCTR_TYPE_NM"
+              not-null="true"
+              unique="true"
+              length="40"/>
+
+    <!-- Association -->
+<!--
+    <set name="customers"
+         lazy="true"
+         inverse="true"
+         cascade="none">
+      <key>
+        <column name="COMPANY_ID"/>
+      </key>
+      <one-to-many class="jp.co.benefitone.model.customer.CustomerVO"/>
+    </set>
+
+    <set name="departments"
+         lazy="true"
+         inverse="true"
+         cascade="none">
+      <key>
+        <column name="COMPANY_ID" />
+      </key>
+      <one-to-many class="jp.co.benefitone.model.customer.DepartmentVO"/>
+    </set>
+    -->
+  </class>
+</hibernate-mapping>

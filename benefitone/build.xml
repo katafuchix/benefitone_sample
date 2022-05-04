@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<project name="benefit-sample" default="compile" basedir=".">
+
+  <property name="source.encoding" value="Windows-31J"/>
+  <property name="conf.dir" value="${basedir}/conf"/>
+  <property name="lib.dir" value="${basedir}/lib"/>
+  <property name="src.dir" value="${basedir}/src"/>
+  <property name="build.dir" value="${basedir}/build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="test.src.dir" value="${basedir}/test"/>
+  <property name="test.classes.dir" value="${build.dir}/test/classes"/>
+  <property name="test.classes" value="**/*Test.java"/>
+  <property name="test.conf.dir" value="${test.src.dir}/conf"/>
+  <property name="gen.src.dir" value="${build.dir}/generated"/>
+  <property name="gen.ejb.dir" value="${gen.src.dir}"/>
+  <property name="war.dir" value="${basedir}/web"/>
+  <property name="web.class.dir" value="${war.dir}/WEB-INF/classes"/>
+  <property name="ejb.dir" value="${basedir}/ejb"/>
+  <property name="ear.dir" value="${basedir}/ear"/>
+  <property name="war" value="benefitone.war"/>
+  <property name="ejb" value="benefitone-ejb.jar"/>
+  <property name="ear" value="benefitone.ear"/>
+  <property name="deploy.dest" value="C:\tomcat\webapps"/>
+  <property name="catalina.home" value="C:\tomcat"/>
+  <property name="catalina.webapps" value="${catalina.home}/webapps"/>
+  <property name="project.name" value="BenefitOne common framework"/>
+  <property name="project.version" value="1.0_beta1"/>
+  <property name="project.vendor" value="Sun Microsystems Inc."/>
+  <property name="ejb.lib"
+            value="spring.jar,aopalliance-1.0.jar,hibernate2.jar,benefitone-common.jar"/>
+
+  <!-- クラスパスの設定 -->
+  <path id="class.path">
+    <pathelement location="${conf.dir}"/>
+    <pathelement location="${web.class.dir}"/>
+    <pathelement location="${classes.dir}"/>
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+  </path>
+
+  <path id="test.class.path">
+    <pathelement location="${test.conf.dir}"/>
+    <pathelement location="${test.classes.dir}"/>
+    <path refid="class.path"/>
+  </path>
+
+  <taskdef name="ejbdoclet"
+    classname="xdoclet.modules.ejb.EjbDocletTask"
+    classpathref="class.path"/>
+
+  <!-- 初期化 -->
+  <target name="init" description="初期化します">
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${test.classes.dir}"/>
+    <mkdir dir="${gen.src.dir}"/>
+    <mkdir dir="${ejb.dir}"/>
+  </target>
+
+  <!-- 生成物の削除 -->
+  <target name="clean" description="生成物を削除します">
+    <delete dir="${build.dir}"/>
+  </target>
+
+
+  <!-- ソースのコンパイル -->
+  <target name="compile" depends="init" description="ソースをコンパイルします">
+    <javac destdir="${classes.dir}"
+           classpathref="class.path"
+           debug="on"
+           encoding="${source.encoding}"
+           deprecation="on">
+      <src path="${src.dir}"/>
+    </javac>
+   	<copy todir="${classes.dir}">
+   	  <fileset dir="${src.dir}">
+   	    <include name="**/*.hbm.xml"/>
+       </fileset>
+   	</copy>
+  </target>
+
+  <!-- JUnitコンパイル -->
+  <target name="test.compile" depends="compile"
+          description="JUnitソースをコンパイルします">
+    <javac destdir="${test.classes.dir}"
+           classpathref="test.class.path"
+           debug="on"
+           excludes="**/tool/test/*"
+           deprecation="on"
+           encoding="${source.encoding}">
+      <src path="${test.src.dir}"/>
+    </javac>
+  </target>
+
+  <!-- JUnitテスト -->
+  <target name="test" depends="test.compile" description="JUnitを実行します">
+    <junit printsummary="off"
+           fork="false"
+           failureproperty="tests.failed"
+           showoutput="true">
+      <classpath refid="test.class.path"/>
+      <formatter type="brief" usefile="false"/>
+
+      <batchtest>
+        <fileset dir="${test.src.dir}">
+          <include name="${test.classes}"/>
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <fail if="tests.failed">
+      ***************************************************
+      ****  いくつかのテストが失敗しました。         ****
+      ****  出力内容を確認して問題を解決して下さい。 ****
+      ***************************************************
+    </fail>
+  </target>
+
+  <!-- テンプレートファイルのコピー -->
+  <target name="copy.conf">
+  <!--
+    <copy todir="${classes.dir}" verbose="true">
+      <fileset dir="${src.dir}">
+        <include name="**/*.template"/>
+      </fileset>
+    </copy>
+    -->
+    <copy todir="${classes.dir}" verbose="ture">
+      <fileset dir="${conf.dir}">
+        <include name="**/*.xml"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- EJBの作成 -->
+  <target name="ejb.create" depends="compile,copy.conf">
+    <!-- Docletにより、EJB本体を生成                  -->                
+    <!-- (ex. FooService.java -> FooSessionBean.java) -->                
+    <javadoc 
+      failonerror="true" 
+      encoding="${source.encoding}"
+      verbose="true">                                         
+      <doclet name="jp.co.benefitone.common.fw.tool.CreateSessionBeanDoclet"
+              pathref="class.path">                                      
+        <param name="-dir" value="${gen.src.dir}"/>
+        <param name="-suffix" value="Impl"/>
+        <param name="-jndi-prefix" value="ejb/"/>
+        <param name="-context" value="application-context.xml"/>
+      </doclet>                                                          
+      <!-- Session Beanを生成する対象サービスのインタフェース -->        
+      <fileset dir="${src.dir}" defaultexcludes="yes">
+        <include name="**/*Service.java"/>
+      </fileset>
+      <classpath refid="class.path"/>
+    </javadoc>
+  </target>
+
+  <!-- XDocletの実行 -->
+  <target name="xdoclet" depends="ejb.create">
+    <mkdir dir="${gen.ejb.dir}"/>
+
+    <delete>
+      <fileset dir="${ejb.dir}">
+        <include name="ejb-jar.xml"/>
+      </fileset>
+    </delete>
+
+    <ejbdoclet
+        encoding="${source.encoding}"
+        destdir="${gen.ejb.dir}"
+        excludedtags="@version,@author,@todo"
+        ejbspec="2.0">
+
+      <!-- ソースファイルの指定 -->
+      <fileset dir="${gen.src.dir}">
+        <!-- For test -->
+        <include name="**/*Bean.java"/>
+      </fileset>
+
+      <!-- リモート／ホームインターフェイス生成 -->
+      <!--
+      <remoteinterface pattern="{0}Remote"/>
+      <homeinterface pattern="{0}RemoteHome"/>
+      -->
+      <localinterface pattern="{0}Local"/>
+      <localhomeinterface pattern="{0}LocalHome"/>
+
+      <!-- sun-ejb-jar.xml -->
+      <sunone destdir="${ejb.dir}"/>
+
+      <!-- ejb-jar.xmlの生成 -->
+      <deploymentdescriptor destdir="${ejb.dir}"/>
+    </ejbdoclet>
+  </target>
+
+  <!-- 生成ファイルのコンパイル -->
+  <target name="compile.gen" 
+          depends="compile, xdoclet"
+          description="ソースをコンパイルします">
+    <javac destdir="${classes.dir}"
+           classpathref="class.path"
+           debug="on"
+           encoding="${source.encoding}"
+           deprecation="on">
+      <src path="${gen.src.dir}"/>
+      <src path="${gen.ejb.dir}"/>
+      <src path="${src.dir}"/>
+    </javac>
+  </target>
+
+  <!-- EJB 作成 -->
+  <target name="ejb" depends="compile.gen"
+          description="EJB JARを作成します">
+    <jar destfile="${build.dir}/${ejb}">
+       <fileset dir="${classes.dir}">
+        <exclude name="jp/co/benefitone/presentation/customer/**"/>
+      </fileset>
+      <fileset dir="${conf.dir}">
+        <include name="application-context.xml"/>
+      </fileset>
+      <metainf dir="${ejb.dir}" includes="*.xml,"/>
+     </jar>
+  </target>
+
+ <!-- War生成 -->
+  <target name="war" depends="compile" description="WARファイルを生成します">
+    <war destfile="${build.dir}/${war}"
+         webxml="${war.dir}/WEB-INF/web.xml">
+      <webinf dir="${war.dir}/WEB-INF">
+        <include name="classes/*"/>
+        <include name="*"/>
+        <exclude name="classes/application-context.*"/>
+        <exclude name="web.xml"/>
+      </webinf>
+      <lib dir="${lib.dir}">
+      	 <include name="jsf-api.jar"/>
+      	 <include name="jsf-impl.jar"/>
+      	 <include name="jstl.jar"/>
+      	 <include name="standard.jar"/>
+      	 <include name="aopalliance-1.0.jar"/>
+      	 <include name="benefitone-common.jar"/>
+         <include name="cglib-full-2.0.2.jar"/>
+      	 <include name="commons-beanutils.jar"/>
+      	 <include name="commons-collections.jar"/>
+      	 <include name="commons-digester.jar"/>
+      	 <include name="commons-logging.jar"/>
+      	 <include name="dom4j-1.4.jar"/>
+      	 <include name="ehcache-0.9.jar"/>
+      	 <include name="odmg-3.0.jar"/>
+      	 <include name="jakarta-oro-2.0.8.jar"/>
+      	 <include name="hibernate2.jar"/>
+      	 <include name="spring.jar"/>
+         <!-- Tomcatの場合のみ必要 -->
+         <include name="jta.jar"/>
+      </lib>
+
+      <classes dir="${classes.dir}"
+               includes="jp/co/benefitone/**"/>
+
+      <fileset dir="${war.dir}">
+        <exclude name="WEB-INF/**"/>
+      </fileset>
+
+    </war>
+  </target>
+
+  <property name="ear.lib"
+            value="spring.jar,aopalliance-1.0.jar,hibernate2.jar,benefitone-common.jar"/>
+  
+  <!-- EAR生成 -->
+  <target name="ear" depends="ejb,war" description="EARファイルを生成します">
+    <ear destfile="${build.dir}/${ear}" 
+          appxml="${ear.dir}/META-INF/application.xml">
+      <fileset dir="${build.dir}" includes="*.jar,*.war"/>
+      <fileset dir="${lib.dir}" includes="${ear.lib}"/>
+      <manifest>
+        <attribute name="Class-Path" value="${ear.lib},${ejb}"/>
+      </manifest>
+      <metainf dir="${ear.dir}/META-INF" includes="sun-application.xml"/>
+    </ear>
+  </target>
+
+  <!-- deploy appserver -->
+  <target name="deploy">
+    <copy todir="${deploy.dest}" verbose="true">
+      <fileset dir="${build.dir}" includes="benefitone.ear"/>
+    </copy>
+  </target>
+  <target name="deploy.war">
+    <copy todir="${deploy.dest}" verbose="true">
+      <fileset dir="${build.dir}" includes="benefitone.war"/>
+    </copy>
+  </target>
+
+</project>

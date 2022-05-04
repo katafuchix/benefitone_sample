@@ -1,0 +1,22 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,,,
+"TestCase 0:Ininitialization.",,,,,,,,,,,,,,
+"概要:","テスト全体で使用する変数の定義です。",,,,,,,,,,,,,
+,"このテストでは、以下のグローバル変数を定義します。",,,,,,,,,,,,,
+,"urlBase:","テスト対象のURL",,,,,,,,,,,,
+,"userAgent:","ブラウザ名",,,,,,,,,,,,
+1,"","","","","Pass","","0","05/19/2005","","FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo","",""
+2,"","","","","Pass","","0","05/19/2005","","FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)","",""
+"TestCase 1:Normal Path",,,,,,,,,,,,,,
+"概要:","ログアウトした場合、ログイン画面がブラウザに表示される。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","ログイン画面が表示されること。",,,,,,,,,,,,,
+100,"","","","","Pass","","0","05/19/2005","","FuncRemoveCookie","FuncPrintHtml","","",""
+101,"GET","${urlBase}","","${userAgent}","Pass","Status:302","41","05/19/2005","","FuncExistsResponseHeader","Location","${urlBase}/","",""
+102,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","30","05/19/2005","",""
+103,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","60","05/19/2005","","","","","",""
+104,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}","Pass","Status:302","210","05/19/2005","","FuncPrintResponseHeader","FuncPrintHtml","FuncExistsResponseHeader","Location","${urlBase}/index.html"
+105,"GET","${urlBase}/index.html","","${userAgent}","Pass","Status:200","100","05/19/2005","","","","","",""
+106,"GET","${urlBase}/","","${userAgent}","Pass","Status:200","10","05/19/2005","リダイレクト","FuncPrintResponseHeader","FuncPrintHtml","","",""
+107,"GET","${urlBase}/faces/customerList.jsp","","${userAgent}","Pass","Status:200","70","05/19/2005","ログイン成功","FuncExistsString","<title>Customer List</title>","","",""
+108,"POST","${urlBase}/faces/customerList.jsp","_id2%3A_id3=Logout&_id2=_id2","${userAgent}","Pass","Status:302","40","05/19/2005","ログアウト実行。リダイレクト。","FuncPrintResponseHeader","FuncPrintHtml","FuncExistsResponseHeader","Location","${urlBase}/faces/customerList.jsp","",""
+109,"GET","${urlBase}/faces/customerList.jsp","","${userAgent}","Pass","Status:200","50","05/19/2005","顧客検索画面に戻る。","FuncPrintResponseHeader","FuncPrintHtml","FuncExistsString","<title>Login</title>",""

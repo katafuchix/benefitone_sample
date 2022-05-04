@@ -1,0 +1,17 @@
+<jsp:directive.page contentType="text/html;charset=Windows-31J" 
+                    pageEncoding="Windows-31J"/>
+  <table width="100%">
+    <tr bgcolor="#aabbcc">
+      <td align="left">
+        <h:outputText value="顧客管理システム"/>
+      </td>
+      <td align="right">
+        <h:outputText value="ユーザ: #{facesContext.externalContext.userPrincipal.name}"/>
+        <br/>
+        <h:form>
+          <h:commandButton value="ログアウト" immediate="true"
+                           action="#{logoutBean.logout}"/> 
+        </h:form>
+      </td>
+    </tr>
+  </table>

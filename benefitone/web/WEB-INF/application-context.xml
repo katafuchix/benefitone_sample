@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<!DOCTYPE beans PUBLIC 
+  "-//SPRING//DTD BEAN//EN" 
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- データソース -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName"><value>oracle.jdbc.driver.OracleDriver</value></property>
+    <property name="url"><value>jdbc:oracle:thin:@192.168.0.22:1521:TorinoDB</value></property>
+    <property name="username"><value>torino-dev</value></property>
+    <property name="password"><value>mstit121sol</value></property>
+  </bean>
+
+  <!-- Hibernateセッションファクトリ -->
+  <bean name="sessionFactory"
+        class="org.springframework.orm.hibernate.LocalSessionFactoryBean"
+        lazy-init="true">
+    <property name="mappingResources">
+      <list>
+        <value>jp/co/benefitone/model/customer/CustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DepartmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CompanyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/course/BntyTypeVO.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <!--
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.PostgreSQLDialect</prop>
+        -->
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.Oracle9Dialect</prop>
+        <!--
+        <prop key="hibernate.transaction.factory_class">net.sf.hibernate.transaction.JTATransactionFactory</prop>
+        <prop key="hibernate.transaction.manager_lookup_class">net.sf.hibernate.transaction.SunONETransactionManagerLookup</prop>
+        -->
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+    <property name="dataSource"> <!-- データソース -->
+      <ref bean="dataSource"/>
+    </property>
+  </bean>
+
+  <!-- データアクセスオブジェクト：CustomerDAO -->
+  <bean name="CustomerDAO" 
+        class="jp.co.benefitone.integration.customer.CustomerDAOImpl"
+        lazy-init="true">
+    <property name="sessionFactory"> <!-- Hibernateセッションファクトリ -->
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean name="CourseClassDAO" 
+        class="jp.co.benefitone.integration.course.CourseClassDAOImpl"
+        lazy-init="true">
+    <property name="sessionFactory"> <!-- Hibernateセッションファクトリ -->
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean name="CategoryDAO" 
+        class="jp.co.benefitone.integration.course.impl.CategoryDAOImpl"
+        lazy-init="true">
+    <property name="sessionFactory"> <!-- Hibernateセッションファクトリ -->
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+
+  <bean id="courseMenuFeeMaintenanceDAO" 
+	class="jp.co.benefitone.integration.course.CourseMenuFeeMaintenanceDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+
+
+  <!-- Interceptors -->
+  <bean name="tracerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.trace.TracerInterceptor"/>
+
+  <bean name="rollbackManagerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.transaction.RollbackManagerInterceptor"/>
+
+  <bean name="hibernateManagerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.hibernate.HibernateManagerInterceptor"/>
+
+  <!-- トレース出力インターセプターのポイントカット定義 -->
+  <bean id="tracerAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="tracerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+Service\..+</value>
+    </property>
+  </bean>
+
+  <!-- ロールバック管理インターセプターのポイントカット定義 -->
+  <bean id="rollbackAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="rollbackManagerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+ManageService\..+</value>
+    </property>
+  </bean>
+
+  <!-- Hibernateセッション管理インターセプターのポイントカット定義 -->
+  <bean id="hibernateAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="hibernateManagerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+Service\..+</value>
+    </property>
+  </bean>
+
+  <!-- 自動プロキシーの利用 -->
+  <bean id="autoProxyCreator"
+        class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+  <!-- サービスオブジェクト：CustomerFindService -->
+  <bean name="CustomerFindService"
+        class="jp.co.benefitone.business.customer.CustomerFindServiceImpl"
+        lazy-init="true">
+    <property name="customerDAO">
+      <ref bean="CustomerDAO"/>
+    </property>
+  </bean>
+
+  <!-- サービスオブジェクト：CustomerManageService -->
+  <bean name="CustomerManageService"
+        class="jp.co.benefitone.business.customer.CustomerManageServiceImpl"
+        lazy-init="true">
+    <property name="customerDAO">
+      <ref bean="CustomerDAO"/>
+    </property>
+    <property name="customerFindService">
+      <ref bean="CustomerFindService"/>
+    </property>
+  </bean>
+
+  <!-- サービスオブジェクト：CourseClassService -->
+  <bean name="CourseClassService"
+        class="jp.co.benefitone.business.course.CourseClassServiceImpl"
+        lazy-init="true">
+    <property name="courseClassDAO">
+      <ref bean="CourseClassDAO"/>
+    </property>
+    <property name="catDAO">
+      <ref bean="CategoryDAO"/>
+    </property>
+  </bean>
+
+  <!-- サービスオブジェクト：CourseMenuFeeMaintenanceService -->
+
+  <bean id="CourseMenuFeeMaintenanceService"
+    class="jp.co.benefitone.business.course.CourseMenuFeeMaintenanceServiceImpl" lazy-init="true">
+
+	<property name="sessionFactory">
+		<ref bean="sessionFactory" />
+	</property>
+
+	<property name="courseMenuFeeMaintenanceDAO">
+      <ref bean="courseMenuFeeMaintenanceDAO"/>
+    </property>
+
+  </bean>
+
+
+
+</beans>

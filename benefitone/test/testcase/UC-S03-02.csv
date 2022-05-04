@@ -1,0 +1,74 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,,,
+"TestCase 0: Initialization.",,,,,,,,,,,,,,
+1,,,,,,,,,,"FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo",,
+2,,,,,,,,,,"FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)",,
+"TestCase 1: Normal path",,,,,,,,,,,,,,
+"概要:","登録済みの顧客を指定して、編集用として顧客情報入力画面をブラウザに表示する",,,,,,,,,,,,,
+"事前条件:","管理者ロールを持つユーザでログインしていること。",,,,,,,,,,,,,
+"事後条件:","選択した顧客情報の詳細が編集状態で表示されること。",,,,,,,,,,,,,
+100,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+101,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+102,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+103,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+104,"POST","${urlBase}/j_security_check","j_username=manager&j_password=manager","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html",,
+105,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+106,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,,,
+107,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",,,
+108,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,"検索ボタン押下","FuncExistsString","<title>Customer List</title>",,,
+109,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id15%3A0%3A_id17=%8F%DA%8D%D7&_id5=_id5","${userAgent}",,,,,"詳細ボタン押下。顧客ID=3002","FuncPrintHtml","FuncExistsString","<title>Customer Details</title>",,
+110,,,,,,,,,,"FuncExistsTableTag",1,0,0,"&#20250;&#31038;"
+111,,,,,,,,,,"FuncExistsTableTag",1,1,0,"&#20250;&#31038;"
+112,,,,,,,,,,"FuncExistsTableTag",1,2,0,"&#37096;&#32626;"
+113,,,,,,,,,,"FuncExistsTableTag",1,3,0,"&#37096;&#32626;"
+114,,,,,,,,,,"FuncExistsTableTag",1,4,0,"&#37096;&#32626;"
+115,,,,,,,,,,"FuncExistsTableTag",1,5,0,"&#39015;&#23458;"
+116,,,,,,,,,,"FuncExistsTableTag",1,6,0,"&#39015;&#23458;"
+117,,,,,,,,,,"FuncExistsTableTag",1,7,0,"&#39015;&#23458;"
+118,,,,,,,,,,"FuncExistsTableTag",1,8,0,"&#39015;&#23458;"
+119,,,,,,,,,,"FuncExistsTableTag",1,0,1,"&#12467;&#12540;&#12489;"
+120,,,,,,,,,,"FuncExistsTableTag",1,1,1,"&#20250;&#31038;&#21517;"
+121,,,,,,,,,,"FuncExistsTableTag",1,2,1,"&#12467;&#12540;&#12489;"
+122,,,,,,,,,,"FuncExistsTableTag",1,3,1,"&#37096;&#32626;&#21517;"
+123,,,,,,,,,,"FuncExistsTableTag",1,4,1,"&#20303;&#25152;"
+124,,,,,,,,,,"FuncExistsTableTag",1,5,1,"&#12467;&#12540;&#12489;"
+125,,,,,,,,,,"FuncExistsTableTag",1,6,1,"&#27663;&#21517;"
+126,,,,,,,,,,"FuncExistsTableTag",1,7,1,"&#12513;&#12540;&#12523;&#12450;&#12489;&#12524;&#12473;"
+127,,,,,,,,,,"FuncExistsTableTag",1,8,1,"&#38651;&#35441;&#30058;&#21495;"
+128,,,,,,,,,,"FuncExistsTableTag",1,0,2,1001
+129,,,,,,,,,,"FuncExistsTableTag",1,1,2,"SUN"
+130,,,,,,,,,,"FuncExistsTableTag",1,2,2,2002
+131,,,,,,,,,,"FuncExistsTableTag",1,3,2,"SOLARIS"
+132,,,,,,,,,,"FuncExistsTableTag",1,4,2,"YOUGA"
+133,,,,,,,,,,"FuncExistsTableTag",1,5,2,3002
+134,,,,,,,,,,"FuncExistsTableTag",1,6,2,"FIRST2LAST2"
+135,,,,,,,,,,"FuncExistsTableTag",1,7,2,"first2@sun.com"
+136,,,,,,,,,,"FuncExistsTableTag",1,8,2,"03-5999-2121"
+137,"POST","${urlBase}/faces/customerDetails.jsp","_id5%3A_id29=%95%D2%8FW&_id5=_id5","${userAgent}",,,,,"編集ボタン押下","FuncPrintHtml","FuncExistsString","<title>Customer Edit</title>",,
+138,,,,,,,,,,"FuncExistsTableTag",1,0,0,"&#20250;&#31038;"
+139,,,,,,,,,,"FuncExistsTableTag",1,1,0,"&#20250;&#31038;"
+140,,,,,,,,,,"FuncExistsTableTag",1,2,0,"&#37096;&#32626;"
+141,,,,,,,,,,"FuncExistsTableTag",1,3,0,"&#37096;&#32626;"
+142,,,,,,,,,,"FuncExistsTableTag",1,4,0,"&#37096;&#32626;"
+143,,,,,,,,,,"FuncExistsTableTag",1,5,0,"&#39015;&#23458;"
+144,,,,,,,,,,"FuncExistsTableTag",1,6,0,"&#39015;&#23458;"
+145,,,,,,,,,,"FuncExistsTableTag",1,7,0,"&#39015;&#23458;"
+146,,,,,,,,,,"FuncExistsTableTag",1,8,0,"&#39015;&#23458;"
+147,,,,,,,,,,"FuncExistsTableTag",1,0,1,"&#12467;&#12540;&#12489;"
+148,,,,,,,,,,"FuncExistsTableTag",1,1,1,"&#20250;&#31038;&#21517;(&#20837;&#21147;&#24517;&#38920;)"
+149,,,,,,,,,,"FuncExistsTableTag",1,2,1,"&#12467;&#12540;&#12489;"
+150,,,,,,,,,,"FuncExistsTableTag",1,3,1,"&#37096;&#32626;&#21517;(&#20837;&#21147;&#24517;&#38920;)"
+151,,,,,,,,,,"FuncExistsTableTag",1,4,1,"&#20303;&#25152;"
+152,,,,,,,,,,"FuncExistsTableTag",1,5,1,"&#12467;&#12540;&#12489;"
+153,,,,,,,,,,"FuncExistsTableTag",1,6,1,"&#27663;&#21517;(&#20837;&#21147;&#24517;&#38920;)"
+154,,,,,,,,,,"FuncExistsTableTag",1,7,1,"&#12513;&#12540;&#12523;&#12450;&#12489;&#12524;&#12473;"
+155,,,,,,,,,,"FuncExistsTableTag",1,8,1,"&#38651;&#35441;&#30058;&#21495;"
+156,,,,,,,,,,"FuncExistsTableTag",1,0,2,1001
+157,,,,,,,,,,"FuncExistsTableTag",1,1,2,"<input type=""text"" name=""_id5:_id10"" value=""SUN"" />"
+158,,,,,,,,,,"FuncExistsTableTag",1,2,2,2002
+159,,,,,,,,,,"FuncExistsTableTag",1,3,2,"<input type=""text"" name=""_id5:_id15"" value=""SOLARIS"" />"
+160,,,,,,,,,,"FuncExistsTableTag",1,4,2,"<textarea name=""_id5:_id17"">YOUGA</textarea>"
+161,,,,,,,,,,"FuncExistsTableTag",1,5,2,3002
+162,,,,,,,,,,"FuncExistsTableTag",1,6,2,"<input type=""text"" name=""_id5:_id22"" value=""FIRST2"" /><input type=""text"" name=""_id5:_id23"" value=""LAST2"" />"
+163,,,,,,,,,,"FuncExistsTableTag",1,7,2,"<input type=""text"" name=""_id5:_id25"" value=""first2@sun.com"" />"
+164,,,,,,,,,,"FuncExistsTableTag",1,8,2,"<input type=""text"" name=""_id5:_id27"" value=""03-5999-2121"" />"
+165,"POST","${urlBase}/faces/customerDetailsForm.jsp","_id5%3A_id8=1001&_id5%3A_id10=SUN&_id5%3A_id13=2002&_id5%3A_id15=SOLARIS&_id5%3A_id17=YOUGA&_id5%3A_id20=3002&_id5%3A_id22=FIRST2&_id5%3A_id23=LAST2&_id5%3A_id25=first2%40sun.com&_id5%3A_id27=03-5999-2121&_id5%3A_id28=%96%DF%82%E9&_id5=_id5","${userAgent}",,,,,"戻るボタン押下。","FuncPrintHtml","FuncExistsString","<title>Customer List</title>",,

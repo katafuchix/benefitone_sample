@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+  
+<hibernate-mapping>
+<!-- package="jp.co.benefitone.model.customer" -->
+  <class name="jp.co.benefitone.model.customer.CustomerVO" 
+         table="EX_CUSTOMER"
+         lazy="false">
+
+    <!-- Primary Key -->
+    <id name="id"
+        type="java.lang.Integer"
+        unsaved-value="null"
+        column="ID">
+      <generator class="sequence">
+        <param name="sequence">id_customer</param>
+      </generator>
+    </id>
+
+    <!-- column -->
+    <component name="name"
+               class="jp.co.benefitone.model.customer.CustomerNameVO">
+      <property name="firstName"
+                type="java.lang.String"
+                column="NAME_FIRSTNAME"
+                not-null="true"
+                length="20" />
+      <property name="lastName"
+                type="java.lang.String"
+                column="NAME_LASTNAME"
+                not-null="true"
+                length="20" />
+    </component>
+    <property name="email"
+              type="java.lang.String"
+              column="EMAIL"
+              length="100" />
+    <property name="phone"
+              type="java.lang.String"
+              column="PHONE"
+              length="20" />
+    <property name="fax"
+              type="java.lang.String"
+              column="FAX"
+              length="20" />
+
+    <!-- Association -->
+    <many-to-one name="company"
+                 cascade="save-update"
+                 class="jp.co.benefitone.model.customer.CompanyVO"
+                 not-null="true">
+      <column name="COMPANY_ID" />
+    </many-to-one>
+
+    <many-to-one name="department"
+                 cascade="save-update"
+                 class="jp.co.benefitone.model.customer.DepartmentVO"
+                 not-null="true">
+      <column name="DEPARTMENT_ID" />
+    </many-to-one>
+  </class>
+</hibernate-mapping>

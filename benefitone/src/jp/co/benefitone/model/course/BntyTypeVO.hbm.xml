@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+  
+<hibernate-mapping> 
+<!-- package="jp.co.benefitone.model.course" -->
+  <class name="jp.co.benefitone.model.course.BntyTypeVO" 
+         table="M_BNTY_TYPE"
+         lazy="false">
+
+    <id name="bntyTypeKey"
+        type="java.lang.Integer"
+        unsaved-value="null"
+        column="BNTY_TYPE_KEY">
+      <generator class="assigned"/>
+    </id>
+
+	<property name="bntyTypeCd"
+		type="java.lang.String"
+		column="BNTY_TYPE_CD"
+		not-null="true"
+		length="10"/>
+
+	<property name="bntyTypeRem"
+		type="java.lang.String"
+		column="BNTY_TYPE_REM"
+		length="40"/>
+
+	<property name="scaDelFlg"
+		type="java.lang.String"
+		column="SCA_DEL_FLG"
+		not-null="true"
+		length="1"/>
+
+	<property name="scaVerNo"
+		type="int"
+		column="SCA_VER_NO"
+		not-null="true"/>
+
+	<property name="scaEntDt"
+		type="java.util.Date"
+		column="SCA_ENT_DT"
+		not-null="true"/>
+
+	<property name="scaEntUsrNo"
+		type="java.lang.String"
+		column="SCA_ENT_USR_NO"
+		not-null="true"
+		length="16"/>
+
+	<property name="scaLatUpdDt"
+		type="java.util.Date"
+		column="SCA_LAT_UPD_DT"
+		not-null="true"/>
+
+	<property name="scaLatUpdUsrNo"
+		type="java.lang.String"
+		column="SCA_LAT_UPD_USR_NO"
+		not-null="true"
+		length="16"/>
+
+  </class>
+</hibernate-mapping>

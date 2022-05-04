@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<!DOCTYPE beans PUBLIC 
+  "-//SPRING//DTD BEAN//EN" 
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- データソース -->
+  <bean name="dataSource"
+        class="org.springframework.jndi.JndiObjectFactoryBean"
+        lazy-init="true">
+    <property name="jndiName">
+      <value>jdbc/oracle</value>
+    </property>
+    <!-- Tomcat使用時はこのコメントを外し，web.xmlのresource-refを有効にします．-->
+    <property name="resourceRef">
+      <value>true</value>
+    </property>
+    <!-- -->
+  </bean>
+
+  <!-- Hibernateセッションファクトリ -->
+  <bean name="sessionFactory"
+        class="org.springframework.orm.hibernate.LocalSessionFactoryBean"
+        lazy-init="true">
+    <property name="mappingResources">
+      <list>
+        <value>jp/co/benefitone/model/customer/CustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DepartmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CompanyVO.hbm.xml</value>
+        
+        <value>jp/co/benefitone/model/accept/ReminderVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ReserveConfirmationStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptItemSettlementInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptItemReserveInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptDetailMemoVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AccountActivityVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/UserStructureVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/BlockReserveVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptItemPriceCalculationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/PriceCalculationConditionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyCalculationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ActualVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/bounty/BountyFeeAdjustmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/bounty/BountyFeeInvoiceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/bounty/BountyFeePaymentNoticeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/bounty/BountyFeeAdjustmentActualVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/UserStructurePriceCalculationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptItemProspectusInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ReceiptVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptAddressVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/CCCustomerUserMemoVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/OperationLogVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/InquiryControlVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafePointVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplicationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplicationInputVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointMilestonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyAttachedPaperVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyItemRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointActualVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointActualDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/fax/FaxSendRequestVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/fax/ReceivedFaxVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/SendEMailRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/SendEMailAttachedFileVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/SendEMailAddressVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/ReceivedEMailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/ReceivedEMailAttachedFileVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/ReceivedEMailAddressVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/BlockItemRetentionCountVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/BlockItemReserveCountVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/CustomerUserCountVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/CustomerInvoiceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/CustomerInvoiceItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/delivery/DeliveryRequestVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/delivery/DeliveryRequestItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserDestinationListOfNamesVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/delivery/DeliveryRequestCompleteMilestonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/InvoiceCompleteMilestonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/CustomerUserInvoiceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/CustomerUserInvoiceItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ApplyTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptStatusTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ReminderTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/ReminderColorVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptDetailMemoTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/AcceptRouteVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/accept/TeamTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerAnnounceTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeApplicationFormatTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafePointHandlingTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/RestrictionTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PaperTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/SettlementTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeApplyTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/LevyTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeDisplayCategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeMenuRequiredPaperGroupVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeMenuRequiredPaperVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeMenuAdditionalStationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeMenuExcludeStationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/ApplyPatternVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafePointStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/PointApplyReturnReasonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/DepartmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/EmployeeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/B1UserVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/BankVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/CreditCompanyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/RelationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/PrefecturesVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/ZipCodeAddressVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/OwnCompanyInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/B1TransactionsBankVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/TaxRatioTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/RoleTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/B1UserRoleVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/fax/FaxSendRequestStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/fax/ReceivedFaxReadResultTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/util/mail/SendEMailTemplateVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/AccountTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/partner/TransactionsCompanyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/partner/TransactionsCompanyRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/InquiryTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/RegionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/BlockTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuInformationItemTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuInformationItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuInformationItemAlternativeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuStructureTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuStructureClassVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/bounty/BountyTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CalendarVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/SeasonGroupTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/DataInterchangeMethodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ApplyMethodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerUserPaymentMethodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/AreaVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/AreaRegionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/StandardCancelTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/StandardCancelRegularVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/partner/TransactionsCompanyNegotiationRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/FacilityCategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CancelChargeDecisionTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ApplyToVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/GBTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/HolidayBeforeTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuSeasonColorVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ChildPriceCalculationTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/partner/SupplierFeeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/InformationItemTypeAlternativeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanMenuInformationBaseVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ChildPriceRegularVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/RoundingTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/GuideBookNoticeMethodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/NoticeMethodTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/master/SystemCodeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/AgencyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/FeeInvoiceTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/ListingTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/SectorVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/BusinessTripCourseVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DeliveryUnitTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/InvoiceIssuePeriodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/PaymentMethodTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceExpenceitemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerAdditionalInformationItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerAdditionalInformationItemAlternativeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/VIPHandlingTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/MemberCardTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DeliveryContentTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/ContractTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceFormatTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DeliveryRequestStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DeliveryRequestMilestonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUseStopReasonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/InvoiceStatusVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/demand/InvoiceMilestonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyAmountDecisionBaseVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyAmountDecisionTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/AcademicYearTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInquiryTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerAnnounceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerApplicationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerPersonInChargeEmployeeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerRegularGrantTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafePointTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerRegularGrantPointVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerRegularGrantPointHandlingTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/RestrictionGroupVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerCafeDisplayCategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerMemberCafeMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/RestrictionCustomerMemberCafeMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerMemberCafeMenuRequiredPaperGroupVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerMemberCafeMenuRequiredPaperVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerMemberCafeMenuAdditionalStationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CustomerMemberCafeMenuExcludeStationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/EnablePointTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/CafeCustomerUserVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserGrantTypeRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/point/GrantPointVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuContractVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuCountNumberControlVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/SalesAreaVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuFacilityVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/AcceptConfirmationConsiderationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuMemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PriceDecisionItemStructureVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PriceDecisionConditionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuSeasonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuSeasonTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuTariffVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/BlockItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/EnableCategoryVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerUseDisableMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ExclusiveMenuEnableCustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerMenuSpecialHandlingVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerMenuSpecialHandlingMemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerMenuSpecialHandlingApplyMethodVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerMenuSpecialHandlingSalesAreaVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/CustomerMenuSpecialHandlingLocationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/GuideBookVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/GuideBookItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/GuideBookDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuImageVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuHolidayVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuPlanVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanMenuInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanMemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuOfferDisableTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuReservationistVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuReservationistAcceptTimeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/SupplierCancelTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/SupplierCancelRegularVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuSeasonItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuInformationDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/PlanChildPriceRegularVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuFacilityRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/BlockItemPlanInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/ClientVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/ClientInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerGroupVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/SettlementAccountVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/ContractInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceBaseVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceBaseItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceBaseItemRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerAdditionalInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerPersonInChargeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerLocationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerSpecialHandlingVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/AffiliatedUnionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserSettlementAccountVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserInvoiceBaseVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserFamilyStructureVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserCreditCardVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserMemoVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerCardTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserCardVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DestinationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DestinationPersonInChargeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerOrganizationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserDestinationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerCreditCardVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/DestinationDeliveryContentVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerInvoiceBaseInvoiceMonthVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUseStopRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/EnableCategoryAdditionalMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/EnableCategoryExcludeMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserAffiliatedUnionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyPreclusionMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountySpecialTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialBountyUnitPriceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/specialbounty/SpecialAuxiliarySpecialTermUnitPriceVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserInvoiceBaseItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerHandlingRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserInvoiceBaseRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/CustomerUserBaseInvoiceMonthVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/customer/GroupDestinationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TStagingMenuMappingVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TStagingMenuUpdateRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuFacilityVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuFacilityRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuOfferDisableTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuPlanVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPlanInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPlanChildPriceRegularVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPriceDecisionItemStructureVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuInformationDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPlanMenuInformationVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuHolidayVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuMemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuMemberPrivilegeItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuMemberPrivilegeItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPlanMemberPrivilegeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuSeasonVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuSeasonTermVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuTariffVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TPriceDecisionConditionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TMenuSeasonItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuEntryApplyRevisionVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MenuEntryApplyVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/AcceptTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TAcceptConfirmationConsiderationVO.hbm.xml</value>
+	    <value>jp/co/benefitone/model/menu/ServiceAgreeInformation.hbm.xml</value>
+	    <value>jp/co/benefitone/model/menu/MServiceAgreeInfVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MTrsctCpny.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TServiceAreaVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TServiceAreaDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/RGbVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/TGuideBookItemVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceAreaVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceAreaDetailVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/SchoolFormVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/DualNextValVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/MemberPrivilegeWeekTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceAgeConditionGroupVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServiceConditionAgeTypeVO.hbm.xml</value>
+        <value>jp/co/benefitone/model/menu/ServicePrivilegeTypeVO.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <!--
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.PostgreSQLDialect</prop>
+        -->
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.Oracle9Dialect</prop>
+        <!--
+        <prop key="hibernate.transaction.factory_class">net.sf.hibernate.transaction.JTATransactionFactory</prop>
+        <prop key="hibernate.transaction.manager_lookup_class">net.sf.hibernate.transaction.SunONETransactionManagerLookup</prop>
+        -->
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+    <property name="dataSource"> <!-- データソース -->
+      <ref bean="dataSource"/>
+    </property>
+  </bean>
+
+  <!-- データアクセスオブジェクト：CustomerDAO -->
+  <bean name="CustomerDAO" 
+        class="jp.co.benefitone.customer.integration.CustomerDAOImpl"
+        lazy-init="true">
+    <property name="sessionFactory"> <!-- Hibernateセッションファクトリ -->
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+
+  <!-- Interceptors -->
+  <bean name="tracerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.trace.TracerInterceptor"/>
+
+  <bean name="rollbackManagerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.transaction.RollbackManagerInterceptor"/>
+
+  <bean name="hibernateManagerInterceptor"
+        class="jp.co.benefitone.common.fw.interceptor.hibernate.HibernateManagerInterceptor"/>
+
+  <!-- トレース出力インターセプターのポイントカット定義 -->
+  <bean id="tracerAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="tracerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+Service\..+</value>
+    </property>
+  </bean>
+
+  <!-- ロールバック管理インターセプターのポイントカット定義 -->
+  <bean id="rollbackAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="rollbackManagerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+ManageService\..+</value>
+    </property>
+  </bean>
+
+  <!-- Hibernateセッション管理インターセプターのポイントカット定義 -->
+  <bean id="hibernateAdvisor"
+        class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    <property name="advice">
+      <ref bean="hibernateManagerInterceptor"/>
+    </property>
+    <property name="pattern">
+      <value>.+Service\..+</value>
+    </property>
+  </bean>
+
+  <!-- 自動プロキシーの利用 -->
+  <bean id="autoProxyCreator"
+        class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+  <!-- サービスオブジェクト：CustomerFindService -->
+  <bean name="CustomerFindService"
+        class="jp.co.benefitone.customer.business.CustomerFindServiceImpl"
+        lazy-init="true">
+    <property name="customerDAO">
+      <ref bean="CustomerDAO"/>
+    </property>
+  </bean>
+
+  <!-- サービスオブジェクト：CustomerManageService -->
+  <bean name="CustomerManageService"
+        class="jp.co.benefitone.customer.business.CustomerManageServiceImpl"
+        lazy-init="true">
+    <property name="customerDAO">
+      <ref bean="CustomerDAO"/>
+    </property>
+    <property name="customerFindService">
+      <ref bean="CustomerFindService"/>
+    </property>
+  </bean>
+
+</beans>

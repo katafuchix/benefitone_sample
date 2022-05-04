@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+
+<!DOCTYPE sun-application PUBLIC 
+  "-//Sun Microsystems, Inc.//DTD Sun ONE Application Server 7.0 J2EE Application 1.3//EN"
+  "http://www.sun.com/software/sunone/appserver/dtds/sun-application_1_3-0.dtd">
+
+<sun-application>
+  <security-role-mapping>
+    <role-name>manager</role-name>
+    <group-name>manager</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>user</role-name>
+    <group-name>user</group-name>
+  </security-role-mapping>
+</sun-application>

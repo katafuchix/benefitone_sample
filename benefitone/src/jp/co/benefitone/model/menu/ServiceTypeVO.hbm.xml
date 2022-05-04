@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping
+>
+    <class
+        name="jp.co.benefitone.model.menu.ServiceTypeVO"
+        table="M_SERVICE_TYPE"
+        lazy="true"
+        optimistic-lock="version"
+    >
+
+        <id
+            name="key"
+            column="SERVICE_TYPE_KEY"
+            type="long"
+        >
+            <generator class="sequence">
+                <param name="sequence">S_SERVICE_TYPE</param>
+              <!--  
+                  To add non XDoclet generator parameters, create a file named 
+                  hibernate-generator-params-ServiceTypeVO.xml 
+                  containing the additional parameters and place it in your merge dir. 
+              --> 
+            </generator>
+        </id>
+
+        <version
+            name="versionNumber"
+            column="SCA_VER_NO"
+            type="long"
+        />
+
+        <property
+            name="code"
+            type="string"
+            update="true"
+            insert="true"
+            access="property"
+            column="SERVICE_TYPE_CD"
+            not-null="true"
+        />
+
+        <property
+            name="name"
+            type="string"
+            update="true"
+            insert="true"
+            access="property"
+            column="SERVICE_TYPE_NM"
+        />
+
+        <property
+            name="deleteFlag"
+            type="string"
+            update="true"
+            insert="true"
+            access="property"
+            column="SCA_DEL_FLG"
+            not-null="true"
+        />
+
+        <property
+            name="entryDate"
+            type="timestamp"
+            update="true"
+            insert="true"
+            access="property"
+            column="SCA_ENT_DT"
+            not-null="true"
+        />
+
+        <property
+            name="entryUserNumber"
+            type="string"
+            update="true"
+            insert="true"
+            access="property"
+            column="SCA_ENT_USR_NO"
+            not-null="true"
+        />
+
+        <property
+            name="lastUpdateDate"
+            type="timestamp"
+            update="true"
+            insert="true"
+            access="property"
+            column="SCA_LAT_UPD_DT"
+            not-null="true"
+        />
+
+        <property
+            name="lastUpdateUserNumber"
+            type="string"
+            update="true"
+            insert="true"
+            access="property"
+            column="SCA_LAT_UPD_USR_NO"
+            not-null="true"
+        />
+
+        <set
+            name="categorysByServiceTypeKey"
+            lazy="true"
+            inverse="true"
+            cascade="none"
+            sort="unsorted"
+            where="SCA_DEL_FLG = '0'"
+        >
+
+            <key
+                column="SERVICE_TYPE_KEY"
+            >
+            </key>
+
+            <one-to-many
+                  class="jp.co.benefitone.model.menu.CategoryVO"
+            />
+
+        </set>
+        
+
+        <!--
+            To add non XDoclet property mappings, create a file named
+                hibernate-properties-ServiceTypeVO.xml
+            containing the additional properties and place it in your merge dir.
+        -->
+
+    </class>
+
+</hibernate-mapping>

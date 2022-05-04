@@ -1,0 +1,74 @@
+"TESTID","METHOD","URL","POST","USERAGENT","RESULT","INFO","TIME","DATE","COMMENT","FUNCTION",,,,
+"TestCase 0: Initialization.",,,,,,,,,,,,,,
+1,,,,,,,,,,"FuncSetGlobalVariable","urlBase","http://localhost:8080/benefitone-demo",,
+2,,,,,,,,,,"FuncSetGlobalVariable","userAgent","Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.7.6) Gecko/20050306 Firefox/1.0.1 (Debian package 1.0.1-2)",,
+"TestCase 1: Normal path",,,,,,,,,,,,,,
+"概要:","検索条件を指定せず、全件検索し、詳細表示する。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","選択した顧客情報の詳細が表示されること。",,,,,,,,,,,,,
+100,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+101,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+102,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+103,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+104,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html",,
+105,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+106,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,,,
+107,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",,,
+108,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,"検索ボタン押下","FuncExistsString","<title>Customer List</title>",,,
+109,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id15%3A0%3A_id17=%8F%DA%8D%D7&_id5=_id5","${userAgent}",,,,,"詳細ボタン押下。顧客ID=3001","FuncPrintHtml","FuncExistsString","<title>Customer Details</title>",,
+110,,,,,,,,,,"FuncExistsTableTag",1,0,0,"&#20250;&#31038;"
+111,,,,,,,,,,"FuncExistsTableTag",1,1,0,"&#20250;&#31038;"
+112,,,,,,,,,,"FuncExistsTableTag",1,2,0,"&#37096;&#32626;"
+113,,,,,,,,,,"FuncExistsTableTag",1,3,0,"&#37096;&#32626;"
+114,,,,,,,,,,"FuncExistsTableTag",1,4,0,"&#37096;&#32626;"
+115,,,,,,,,,,"FuncExistsTableTag",1,5,0,"&#39015;&#23458;"
+116,,,,,,,,,,"FuncExistsTableTag",1,6,0,"&#39015;&#23458;"
+117,,,,,,,,,,"FuncExistsTableTag",1,7,0,"&#39015;&#23458;"
+118,,,,,,,,,,"FuncExistsTableTag",1,8,0,"&#39015;&#23458;"
+119,,,,,,,,,,"FuncExistsTableTag",1,0,1,"&#12467;&#12540;&#12489;"
+120,,,,,,,,,,"FuncExistsTableTag",1,1,1,"&#20250;&#31038;&#21517;"
+121,,,,,,,,,,"FuncExistsTableTag",1,2,1,"&#12467;&#12540;&#12489;"
+122,,,,,,,,,,"FuncExistsTableTag",1,3,1,"&#37096;&#32626;&#21517;"
+123,,,,,,,,,,"FuncExistsTableTag",1,4,1,"&#20303;&#25152;"
+124,,,,,,,,,,"FuncExistsTableTag",1,5,1,"&#12467;&#12540;&#12489;"
+125,,,,,,,,,,"FuncExistsTableTag",1,6,1,"&#27663;&#21517;"
+126,,,,,,,,,,"FuncExistsTableTag",1,7,1,"&#12513;&#12540;&#12523;&#12450;&#12489;&#12524;&#12473;"
+127,,,,,,,,,,"FuncExistsTableTag",1,8,1,"&#38651;&#35441;&#30058;&#21495;"
+128,,,,,,,,,,"FuncExistsTableTag",1,0,2,1001
+129,,,,,,,,,,"FuncExistsTableTag",1,1,2,"SUN"
+130,,,,,,,,,,"FuncExistsTableTag",1,2,2,2001
+131,,,,,,,,,,"FuncExistsTableTag",1,3,2,"JAVA"
+132,,,,,,,,,,"FuncExistsTableTag",1,4,2,"YOUGA"
+133,,,,,,,,,,"FuncExistsTableTag",1,5,2,3001
+134,,,,,,,,,,"FuncExistsTableTag",1,6,2,"FIRST1LAST1"
+135,,,,,,,,,,"FuncExistsTableTag",1,7,2,"first1@sun.com"
+136,,,,,,,,,,"FuncExistsTableTag",1,8,2,"03-5999-2121"
+137,"POST","${urlBase}/faces/customerDetails.jsp","_id5%3A_id28=%96%DF%82%E9&_id5=_id5","${userAgent}",,,,,"戻るボタン押下。CustomerListへ戻る。","FuncPrintHtml","FuncExistsString","<title>Customer List</title>",,
+"TestCase 2",,,,,,,,,,,,,,
+"概要:","管理者権限をもたないユーザで詳細画面を開く。編集ボタンは押下不可能な状態になっている。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","編集ボタンは押下できない状態になっていること",,,,,,,,,,,,,
+200,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+201,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+202,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+203,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+204,"POST","${urlBase}/j_security_check","j_username=jjones&j_password=jjones","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html",,
+205,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+206,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,,,
+207,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",,,
+208,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,"検索ボタン押下","FuncExistsString","<title>Customer List</title>",,,
+209,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id15%3A0%3A_id17=%8F%DA%8D%D7&_id5=_id5","${userAgent}",,,,,"顧客ID=3001","FuncPrintHtml","FuncExistsString","<title>Customer Details</title>","FuncExistsString","<input type=""submit"" name=""_id5:_id29"" value=""&#32232;&#38598;"" disabled=""disabled"" />"
+"TestCase 3",,,,,,,,,,,,,,
+"概要:","管理者権限をもつユーザで詳細画面を開く。編集ボタンは押下可能な状態になっている。",,,,,,,,,,,,,
+"事前条件:","ログインしていること。",,,,,,,,,,,,,
+"事後条件:","編集ボタンが押下できる状態になっていること",,,,,,,,,,,,,
+300,,,,,,,,,,"FuncRemoveCookie","FuncPrintHtml",,,
+301,"GET","${urlBase}",,"${userAgent}",,,,,,,,,,
+302,"GET","${urlBase}/",,"${userAgent}",,,,,,,,,,
+303,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+304,"POST","${urlBase}/j_security_check","j_username=manager&j_password=manager","${userAgent}",,,,,"ログイン成功","FuncExistsResponseHeader","Location","${urlBase}/index.html",,
+305,"GET","${urlBase}/index.html",,"${userAgent}",,,,,,,,,,
+306,"GET","${urlBase}/",,"${userAgent}",,,,,"customerList.jsp へフォワード","FuncPrintHtml",,,,
+307,"GET","${urlBase}/faces/customerList.jsp",,"${userAgent}",,,,,"顧客検索画面表示","FuncExistsString","<title>Customer List</title>",,,
+308,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id12=%8C%9F%8D%F5&_id5=_id5","${userAgent}",,,,,"検索ボタン押下","FuncExistsString","<title>Customer List</title>",,,
+309,"POST","${urlBase}/faces/customerList.jsp","_id5%3A_id7=&_id5%3A_id9=&_id5%3A_id11=&_id5%3A_id15%3A0%3A_id17=%8F%DA%8D%D7&_id5=_id5","${userAgent}",,,,,"顧客ID=3001","FuncPrintHtml","FuncExistsString","<title>Customer Details</title>","FuncExistsString","<input type=""submit"" name=""_id5:_id29"" value=""&#32232;&#38598;"" />"

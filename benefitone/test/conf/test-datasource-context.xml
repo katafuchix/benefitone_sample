@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+          "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean name="oracleDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName"><value>oracle.jdbc.OracleDriver</value></property>
+    <property name="url"><value>jdbc:oracle:thin:@nozomi:1521:NOZOMI</value></property>
+    <property name="username"><value>b1</value></property>
+    <property name="password"><value>oracle</value></property>
+  </bean>
+
+  <bean name="pgDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName"><value>org.postgresql.Driver</value></property>
+    <property name="url"><value>jdbc:postgresql://localhost/nozomi</value></property>
+    <property name="username"><value>b1</value></property>
+    <property name="password"><value>oracle</value></property>
+  </bean>
+
+  <bean name="b1SessionFactory"
+        class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+    <property name="mappingResources">
+      <list>
+        <value>jp/co/benefitone/common/sample/model/CustomerVO.hbm.xml</value>
+        <value>jp/co/benefitone/common/sample/model/DepartmentVO.hbm.xml</value>
+        <value>jp/co/benefitone/common/sample/model/CompanyVO.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.Oracle9Dialect</prop>
+        <!--
+        <prop key="hibernate.dialect">net.sf.hibernate.dialect.PostgreSQLDialect</prop>
+        -->
+        <prop key="show_sql">false</prop>
+      </props>
+    </property>
+    <property name="dataSource">
+      <ref bean="oracleDataSource"/>
+      <!--
+      <ref bean="pgDataSource"/>
+      -->
+    </property>
+  </bean>
+
+  <bean name="customerDAO" class="jp.co.benefitone.common.sample.integration.CustomerDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="b1SessionFactory"/>
+    </property>
+  </bean>
+</beans>

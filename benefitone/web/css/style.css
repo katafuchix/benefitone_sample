@@ -1,0 +1,61 @@
+.Table {
+	FONT-SIZE: 10pt
+}
+.FontResult {
+	COLOR: #ff0000
+}
+.Header2 {
+	FONT-WEIGHT: bold; WIDTH: 20%; COLOR: #009900; BACKGROUND-COLOR: #cccccc
+}
+.Menu {
+	FONT-SIZE: 9pt
+}
+.sortItem {
+	COLOR: #ffffff
+}
+.SearchConditionTable {
+	FONT-SIZE: 10pt; COLOR: #009966;
+}
+.SearchResult {
+	COLOR: #0000ff; BACKGROUND-COLOR: #ccccff
+}
+.SubTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 11pt
+}
+.SearchResultTable {
+	FONT-SIZE: 10pt; COLOR: #000000; BACKGROUND-COLOR: #ffffff
+}
+.SearchResultTableEx {
+	FONT-SIZE: 10pt; WIDTH: 100%; COLOR: #000000; BACKGROUND-COLOR: #ffffff
+}
+.SearchResultTableHeader {
+	COLOR: #ffffff; BACKGROUND-COLOR: #0033ff; TEXT-ALIGN: center
+}
+.SearchResultOdd {
+	BACKGROUND-COLOR: #dfffff
+}
+.SearchResultNew {
+	BACKGROUND-COLOR: #ffffff
+}
+BODY {
+	FONT-SIZE: 10pt; BACKGROUND-COLOR: #e6e6f0
+}
+.Title {
+	FONT-SIZE: 20pt; COLOR: #ffffff
+}
+.Header {
+	FONT-SIZE: 9pt; COLOR: #ffffff; BACKGROUND-COLOR: #999999
+}
+.Footter {
+	FONT-SIZE: 9pt; COLOR: #ffffff; BACKGROUND-COLOR: #999999
+}
+.SearchCondition {
+	COLOR: #009999; BACKGROUND-COLOR: #ffffee;
+}
+A.LinkTable:link {
+	FONT-SIZE: 9pt; COLOR: #ffffff
+}
+A.LinkTable:visited {
+	FONT-SIZE: 9pt; COLOR: #ffffff
+}
+TD { vertical-align:top;}

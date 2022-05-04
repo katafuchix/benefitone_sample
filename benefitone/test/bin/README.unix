@@ -1,0 +1,94 @@
+======================================================================
+  $RCSfile: README.unix,v $
+ $Revision: 1.1.1.1 $
+   $Author: gon $
+     $Date: 2006/01/29 13:03:25 $
+Originator: kei.omizo@sun.com
+OriginDate: 2005/04/22
+======================================================================
+0. はじめに
+本テストケースの実行には、TestCaseTool を利用します。
+テストケースは、testcase ディレクトリに保存されており、結果は testresult
+ディレクトリの保存されます。
+
+1. 準備
+
+1.1. JDK
+(1) JDK のダウンロード
+JDK を以下のサイトからダウンロードします。
+http://java.sun.com
+
+1.2. TestCaseTool
+(1)TestCaseTool のダウンロード
+TestCaseTool を以下のサイトからダウンロードします。
+http://www5f.biglobe.ne.jp/~webtest/testcasetool/
+
+(2) インストール
+ダウンロードしたアーカイブを、任意のディレクトリに展開します。
+
+【例】 /usr/local にインストールする場合
+    % cd /usr/local
+    % unzip TestCaseTool.zip -d /usr/local
+    /usr/local ディレクトリに TestCaseTool が展開されたことを確認します。
+
+1.2. Oracle
+TestCaseTool 実行時に、サンプルデータの初期化を行う場合は、Oracle の
+実行環境を利用する必要があります。
+Oracle にパスを通すか、クライアントランタイムをインストールしてください。
+
+※サンプルデータの初期化を行わない場合は、これは必要ありません。
+(1) Oracle のダウンロード
+オラクル（クライアント）を以下のサイトからダウンロードします。
+http://www.oracle.co.jp
+
+
+2. テストケースの実施
+テストケース実行用のスクリプトは、
+[トップディレクトリ]/benefitone-common/sample/test/bin
+で実行します。
+※[トップディレクトリ]は、benefitone-common モジュールを展開した、
+cvs のトップディレクトリです。
+
+TestCaseRunner.sh は、オプションなしでも実行できますが、オプションを
+指定する場合は、以下の順番で指定します。
+TestCaseRunner.sh [script options] [TestCaseTool options]
+    script options(TestCaseRunner.sh 独自のオプション)
+        --h, --help ヘルプを表示します。
+        --initdata  テストケースの実行前に、サンプルデータの初期化を行います。
+    TestCaseTool options (TestCaseTool のオプション)
+        詳細は、TestCaseTool のドキュメントを参照してください。
+
+(1) 環境変数
+TESTCASETOOL_HOME  TestCaseTool のインストールディレクトリ
+JAVA_HOME          JDK インストールディレクトリ
+
+以下は、サンプルデータの初期化を行う場合のオプションです。
+ORACLE_HOME        オラクルインストールディレクトリ
+ORACLE_SID         オラクル SID
+ORACLE_USER        オラクルのログインユーザ名
+ORACLE_PASSWD      オラクルのログインユーザのパスワード
+
+【例】
+    TESTCASETOOL_HOME=/usr/local/TestCaseTool/TestCaseTool1.2.10
+    JAVA_HOME=/usr/local/java
+    ORACLE_HOME=/opt/oracle/product/10.1.0/db_1
+    ORACLE_SID=SVR
+    ORACLE_USER=b1user
+    ORACLE_PASSWD=b1passwd
+
+(2) データの初期化なしの実行
+    % sh TestCaseRunner.sh
+
+(3) オプションを指定した実行
+オプションを指定する場合は、TestCaseRunner.sh のオプションを先に指定し、
+その後ろに TestCaseTool のオプションを指定します。
+【例】 ヘルプを表示する
+    % sh TestCaseRunner.sh --help
+または
+    % sh TestCaseRunner.sh --h
+
+【例】サンプルデータを初期化してから、テストケースを実行する
+    % sh TestCaseRunner.sh --initdata
+
+【例】TestCaseTool のメール送信オプションを指定して、テストケースを実行する
+    % sh TestCaseRunner.sh --initdata me@myhost notify@myhost
